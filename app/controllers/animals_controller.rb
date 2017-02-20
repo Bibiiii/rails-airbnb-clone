@@ -2,32 +2,40 @@ class AnimalsController < ApplicationController
 
   before_action :set_user, only: [:new, :create]
 
-  def index
+def index
+  if params[:query].blank?
     @animals = Animal.all
+  else
+    @animals = Animal.where('name ILIKE ?', "%#{params[:query]}%")
   end
+end
 
-  def new
-    @animal = Animal.new
+def new
+  @animal = Animal.new
+end
+
+def show
+  @animal = Animal.find(params[:id])
+end
+
+def create
+  @animal = Animal.new(animal_params)
+  @animal.user = @user
+  if @animal.save
+    redirect_to root_path
+  else
+    render :new
   end
+end
 
-  def create
-    @animal = Animal.new(animal_params)
-    @animal.user = @user
-    if @animal.save
-      redirect_to animal_path(animal)
-    else
-      render :new
-    end
-  end
+private
 
-  private
+def set_user
+  @user = User.find(params[:user_id])
+end
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def animal_params
-    params.require(:animal).permit(:name, :bio, :price, photos: [])
-  end
+def animal_params
+  params.require(:animal).permit(:name, :bio, :price, photos: [])
+end
 
 end

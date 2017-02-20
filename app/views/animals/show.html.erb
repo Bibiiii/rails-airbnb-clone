@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-6">
+
+        <h1 class="text-center"> <%= @animal.name.capitalize %></h1>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-6">
+      <% @animal.photos.each do |photo| %>
+      <div class="col-xs-6 " >
+
+        <%= cl_image_tag photo.path, width: 260, height: 200, crop: :fill, class: "show-picture" %>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="col-xs-3">
+
+
+      <p> <strong> Name: </strong> <%= @animal.name %> </p>
+      <p> <strong> Bio: </strong> <%= @animal.bio %> </p>
+      <p> <strong> Price per day: </strong> <%= @animal.price %> </p>
+
+    </div>
+  </div>
+</div>
