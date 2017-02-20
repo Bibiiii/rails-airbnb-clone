@@ -1,6 +1,6 @@
 class AnimalsController < ApplicationController
 
-  before_action :set_animal, only: [:create]
+  before_action :set_user, only: [:new, :create]
 
   def index
     @animals = Animal.all
@@ -11,24 +11,23 @@ class AnimalsController < ApplicationController
   end
 
   def create
-    animal = Animal.new(animal_params)
-    if animal.save
+    @animal = Animal.new(animal_params)
+    @animal.user = @user
+    if @animal.save
       redirect_to animal_path(animal)
     else
       render :new
     end
   end
 
-
-
   private
 
-  def set_animal
-    @animal = Animal.find(params[:id])
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
   def animal_params
-    params.require(:animal).permit(:name)
+    params.require(:animal).permit(:name, :bio, :price, photos: [])
   end
 
 end
