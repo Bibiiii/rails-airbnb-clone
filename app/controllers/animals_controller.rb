@@ -4,7 +4,7 @@ class AnimalsController < ApplicationController
     if params[:query].blank?
       @animals = Animal.all
     else
-      @animals = Animal.where('name ILIKE ?', "%#{params[:query]}%")
+      @animals = Animal.where('species ILIKE ?', "%#{params[:query]}%")
     end
   end
 
