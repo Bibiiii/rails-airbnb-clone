@@ -6,10 +6,10 @@
       <% @animals.each do |animal| %>
         <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
           url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
-        <div class="card-category"><%= animal.name %></div>
+        <div class="card-category"><%= animal.species %></div>
         <div class="card-description">
           <h2><%= animal.name %></h2>
-          <p><%= animal.price %></p>
+          <p>£<%= animal.price %></p>
         </div>
         <%= link_to "", animal_path(animal), class:"card-link"%>
       </div>
