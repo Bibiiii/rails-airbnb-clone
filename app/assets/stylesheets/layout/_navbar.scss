@@ -4,10 +4,9 @@
   background: white;
   transition: all 0.3s ease;
   display: flex;
-  height: 70px;
-  padding: 0px 30px;
+  height: 100px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 /* Optional class to fix the navbar on top */
@@ -19,10 +18,15 @@
   width: 100%;
 }
 
+.fixed-right {
+  position: fixed;
+  right: 0;
+}
 /* Navbar logo */
 .navbar-wagon-brand img {
   width: 200px;
-  margin-top: 50px;
+  margin-top: 70px;
+  justify-self: center;
 }
 
 /* Navbar right section (with form, links, button) */
@@ -129,4 +133,9 @@
   transform: rotate(45deg);
   border-left: 1px solid #E6E6E6;
   border-top: 1px solid #E6E6E6;
+}
+
+.no-show {
+  background-color: white;
+  width: 80px;
 }
