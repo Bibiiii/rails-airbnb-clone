@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+
+
+
+<%= simple_form_for [@user, @animal] do |f| %>
+
+<% if @animal.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @animal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :name%>
+  <%= f.input :bio%>
+  <%= f.input :price%>
+  <%= f.input :photos, as: :attachinary %>
+  <%= f.submit "Submit your animal", class: "btn btn-primary" %>
+<% end %>
+
+    </div>
+  </div>
+</div>
