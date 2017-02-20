@@ -6,11 +6,17 @@ class AnimalsController < ApplicationController
     else
       @animals = Animal.where('name ILIKE ?', "%#{params[:query]}%")
     end
-  end
 
-  def new
-    @animal = Animal.new
   end
+end
+
+def new
+  @animal = Animal.new
+end
+
+def show
+  @animal = Animal.find(params[:id])
+end
 
   def create
     @animal = Animal.new(animal_params)
@@ -20,12 +26,15 @@ class AnimalsController < ApplicationController
     else
       render :new
     end
-  end
 
-  private
+  end
+end
+
+private
 
   def animal_params
     params.require(:animal).permit(:name, :bio, :price, photos: [])
   end
+
 
 end
