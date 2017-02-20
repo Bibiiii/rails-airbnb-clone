@@ -3,7 +3,11 @@ class AnimalsController < ApplicationController
   before_action :set_user, only: [:new, :create]
 
   def index
-    @animals = Animal.all
+    if params[:query].blank?
+      @animals = Animal.all
+    else
+      @animals = Animal.where('name ILIKE ?', "%#{params[:query]}%")
+    end
   end
 
   def new
