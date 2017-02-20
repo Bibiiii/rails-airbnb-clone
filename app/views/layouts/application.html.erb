@@ -10,11 +10,13 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
   <body>
+  <div>
     <%= render 'shared/navbar' %>
     <p class="notice"><%= notice %>  </p>
     <p class="alert"> <%= alert  %></p>
     <%= yield %>
     <%= render 'shared/footer' %>
+    </div>
     <%= javascript_include_tag 'application' %>
     <%= cloudinary_js_config %>
   </body>
