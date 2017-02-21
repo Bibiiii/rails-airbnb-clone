@@ -1,11 +1,13 @@
 <div class="banner" style="background-image: linear-gradient(-225deg, rgba(105, 105, 105, 0.37) 0%, rgba(51, 51, 51, 0.42) 50%), url('<%= image_path 'tropical-bak.jpg' %>')">
   <div class="banner-content">
     <h1>Find a pet</h1>
-    <form action="animals" method="get" class="form-inline">
-     <label class="sr-only" for="inlineFormInput">Species</label>
-     <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" name="query" placeholder="Animal">
-     <button type="submit" class="btn btn-info">Search</button>
-    </form>
+    <div id="search-form">
+    <%= form_tag("animals", method: "get", class: "form-inline") do %>
+      <%#= text_field_tag(:query, "", class: "form-control mb-2 mr-sm-2 mb-sm-0") %>
+      <%= select_tag "species", options_from_collection_for_select(@species, 'id', 'name') %>
+      <%= submit_tag("Search", class: "btn btn-info") %>
+    <% end %>
+    </div>
   </div>
 </div>
 

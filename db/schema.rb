@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221110513) do
+ActiveRecord::Schema.define(version: 20170221123056) do
+# ActiveRecord::Schema.define(version: 20170221110513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +23,8 @@ ActiveRecord::Schema.define(version: 20170221110513) do
     t.datetime "updated_at", null: false
     t.string   "bio"
     t.integer  "price"
-    t.string   "species"
+    t.integer  "species_id"
+    t.index ["species_id"], name: "index_animals_on_species_id", using: :btree
     t.string   "location"
     t.index ["user_id"], name: "index_animals_on_user_id", using: :btree
   end
@@ -51,6 +53,12 @@ ActiveRecord::Schema.define(version: 20170221110513) do
     t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
   end
 
+  create_table "species", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -72,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170221110513) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "animals", "species"
   add_foreign_key "animals", "users"
   add_foreign_key "bookings", "animals"
   add_foreign_key "bookings", "users"
