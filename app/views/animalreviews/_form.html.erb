@@ -1,4 +1,5 @@
 <%= simple_form_for [@animal, @animalreview] do |f| %>
   <%= f.input :comment %>
+  <%= f.input :rating, :collection => [1,2,3,4,5] %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

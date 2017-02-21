@@ -1,5 +1,5 @@
 class AnimalreviewsController < ApplicationController
-  before_action :set_animal, only: [:index, :new, :create, :edit]
+  before_action :set_animal, only: [:index, :new, :show, :create, :edit]
 
   def index
     @animalreviews = Animalreview.all
@@ -44,7 +44,7 @@ class AnimalreviewsController < ApplicationController
   end
 
   def animal_review_params
-    params.require(:animalreview).permit(:comment)
+    params.require(:animalreview).permit(:comment, :rating)
   end
 
 end
