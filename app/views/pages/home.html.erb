@@ -4,7 +4,7 @@
 
     <%= form_tag("animals", method: "get", class: "form-inline") do %>
       <%= text_field_tag(:query, "", class: "form-control mb-2 mr-sm-2 mb-sm-0") %>
-      <%= select_tag "species", options_from_collection_for_select(@species, 'name') %>
+      <%= select_tag "species", options_from_collection_for_select(@species, 'id', 'name') %>
       <%= submit_tag("Search", class: "btn btn-info") %>
     <% end %>
     <form action="animals" method="get" class="form-inline">
