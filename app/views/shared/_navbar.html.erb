@@ -40,13 +40,18 @@
 
         <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
           <li>
-            <%= link_to profile_show_path(current_user) do %>
+            <%= link_to my_profile_path do %>
             <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
             <% end %>
           </li>
           <li>
             <%= link_to root_path do %>
             <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_animal_url do %>
+            <i class="fa fa-plus" aria-hidden="true"></i> Add Animal
             <% end %>
           </li>
           <li>
@@ -62,6 +67,7 @@
 
     <!-- Login text link -->
     <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    <%= link_to t(".sign_up", default: "Sign Up"), new_registration_path(:user), class: "navbar-wagon-item navbar-wagon-link" %>
 
     <% end %>
 
@@ -76,7 +82,7 @@
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
         <li>
-          <%= link_to profile_show_path(current_user) do %>
+          <%= link_to my_profile_path do %>
           <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
           <% end %>
         </li>

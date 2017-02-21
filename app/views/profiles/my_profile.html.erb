@@ -1,0 +1,21 @@
+<br>
+<h1 class="text-center"> <%= @user.username %>  <%= link_to profile_edit_path(@user) do %>
+<i class="fa fa-pencil" aria-hidden="true"></i>
+<% end %>
+ </h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-2 col-xs-4">
+      <% profile_image = current_user.photo? ? current_user.photo.path : current_user.facebook_picture_url %>
+      <% profile_image = "https://www.bunnyholder.com/200/300" if profile_image.nil?  %>
+      <%= cl_image_tag profile_image, width: 200, height: 300, crop: :fill %>
+    </div>
+
+    <div class="col-xs-4">
+
+      <h2> Name <%= @user.first_name %> <%= @user.last_name %></h2>
+      <h3> Bio <%= @user.bio %></h3>
+      </div>
+    </div>
+  </div>
+</div>

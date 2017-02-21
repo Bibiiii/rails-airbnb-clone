@@ -4,7 +4,7 @@
     <% @user.bookings.each do |booking| %>
       <div class="col-xs-12 col-sm-4">
         <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (booking.animal.photos? ? (booking.animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
-          <div class="card-category"> <%= booking.animal.species %> </div>
+          <div class="card-category"> <%= booking.animal.species.name %> </div>
           <div class="card-description">
             <h2> <%= booking.animal.name %></h2>
             <p> <%= booking.start_date %> - <%= booking.end_date %> </p>
@@ -12,7 +12,7 @@
             <p> £<%= price %> </p>
           </div>
           <img class="card-user avatar" src="user.jpg">
-          <a class="card-link" href="" ></a>
+          <%= link_to "", booking_path(booking), class:"card-link"%>
         </div>
       </div>
     <% end %>
