@@ -23,11 +23,4 @@ class ProfilesController < ApplicationController
       render :new
     end
   end
-
-  private
-
-  def def profile_params
-    params.require(:user).permit(:username, :bio, :photo, :first_name, :last_name, :email)
-  end
-
 end
