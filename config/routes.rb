@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get "/profile/:id/edit", to: "profiles#edit"
-  patch "/profile/:id", to: "profiles#update", as: "profile_edit"
+  patch "/profile/:id/edit", to: "profiles#update", as: "profile_edit"
   get "/profile/:id/show", to: "profiles#show", as: "profile_show"
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
   resources :users
   resources :animals

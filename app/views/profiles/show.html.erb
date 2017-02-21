@@ -7,6 +7,7 @@
       <h1><%= @user.username %></h1>
       <h2><%= @user.first_name %> <%= @user.last_name %></h2>
       <h3><%= @user.bio %></h3>
+      <%= link_to "Edit Profile", profile_edit_path(@user) %>
     </div>
   </div>
 </div>
