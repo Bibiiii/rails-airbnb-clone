@@ -62,6 +62,7 @@
 
     <!-- Login text link -->
     <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    <%= link_to t(".sign_up", default: "Sign Up"), new_registration_path(:user), class: "navbar-wagon-item navbar-wagon-link" %>
 
     <% end %>
 
