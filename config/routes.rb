@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :bookings, only: [:index, :show, :destroy]
+  
   get '/my_profile', to: 'profiles#my_profile', as: "my_profile"
+  
+  get '/my_bookings', to: 'profiles#my_bookings'
 
   mount Attachinary::Engine => "/attachinary"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

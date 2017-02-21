@@ -9,6 +9,11 @@ before_action :authenticate_user!, only: [:edit, :update]
     @user = User.find(params[:id])
   end
 
+  def my_bookings
+    @user = current_user
+
+  end
+
   def edit
     @user = current_user
   end

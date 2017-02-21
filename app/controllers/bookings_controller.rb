@@ -14,9 +14,9 @@ class BookingsController < ApplicationController
   #   @booking.active? = false
   # end
 
-  def new
-    @booking = Booking.new
-  end
+  # def new
+  #   @booking = Booking.new
+  # end
 
   def create
     @booking = Booking.new(booking_params)
