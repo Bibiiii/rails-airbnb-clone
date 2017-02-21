@@ -1,0 +1,26 @@
+<div class="container">
+
+  <h1 class="text-center">
+    View booking
+  </h1>
+  <p>
+    <strong>Booking date: </strong> <%= @booking.created_at %>
+  </p>
+  <h3>
+    <strong> Animal: </strong> <%= @booking.animal.name %> - <%= @booking.animal.species %>
+  </h3>
+  <p>     <%= @booking.animal.bio %> </p>
+<br>
+  <ul>
+    <li> <strong> Dates: </strong> <%= @booking.start_date %>  -  <%= @booking.end_date %> </li>
+    <% length = (@booking.end_date - @booking.start_date).to_i %>
+    <li><strong> Price: </strong> £<%= @booking.animal.price %> x <%= length %> days = £<%= @booking.animal.price * length %>
+    </li>
+  </ul>
+</p>
+<br>
+<h4>
+  <strong> Status: </strong> <%= @booking.accepted ? "Confirmed" : "Awaiting confirmation by owner" %>
+</h4>
+
+</div>
