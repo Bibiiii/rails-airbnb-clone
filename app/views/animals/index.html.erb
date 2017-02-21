@@ -1,20 +1,21 @@
 <div class="container">
-<h1> Search results </h1>
-<br>
+  <h1> Search results </h1>
+  <br>
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4">
-      <% @animals.each do |animal| %>
+    <% @animals.each do |animal| %>
+      <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
           url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
-        <div class="card-category"><%= animal.species %></div>
-        <div class="card-description">
-          <h2><%= animal.name %></h2>
-          <p>£<%= animal.price %></p>
+          <div class="card-category"><%= animal.species.name %></div>
+          <div class="card-description">
+            <h2><%= animal.name %></h2>
+            <p>£<%= animal.price %></p>
+          </div>
+          <%= link_to "", animal_path(animal), class:"card-link"%>
         </div>
-        <%= link_to "", animal_path(animal), class:"card-link"%>
       </div>
-      <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
+
 <br>
