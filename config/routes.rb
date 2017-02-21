@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :animals do
     resources :bookings, only: [:new, :create]
+    resources :animalreviews, except: [:destroy]
   end
 
   resources :bookings, only: [:index, :show, :destroy]
