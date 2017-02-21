@@ -2,10 +2,11 @@ class AnimalsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    if params[:query].blank?
+    if params[:species].blank?
       @animals = Animal.all
     else
-      @animals = Animal.where('species ILIKE ?', "%#{params[:query]}%")
+      species = Species.find(params[:species])
+      @animals = Animal.where(species: species)
     end
   end
 
