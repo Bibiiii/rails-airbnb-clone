@@ -1,16 +1,31 @@
 <div class="banner" style="background-image: linear-gradient(-225deg, rgba(105, 105, 105, 0.37) 0%, rgba(51, 51, 51, 0.42) 50%), url('<%= image_path 'tropical-bak.jpg' %>')">
   <div class="banner-content">
     <h1>Find a pet</h1>
-    <div id="search-form">
     <%= form_tag("animals", method: "get", class: "form-inline") do %>
-      <%#= text_field_tag(:query, "", class: "form-control mb-2 mr-sm-2 mb-sm-0") %>
-      <%= select_tag "species", options_from_collection_for_select(@species, 'id', 'name') %>
+      <div class="form-group">
+        <%= select_tag "species", options_from_collection_for_select(@species, 'id', 'name') %>
+      </div>
+      <div class="form-group date-picker">
+        <input type="text" id="calendar" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+      </div>
+      <div class="form-group date-picker">
+        <input type="text" id="calendar2" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
+      </div>
+       <div class="form-group">
+        <input type="text" placeholder="location" class="form-control">
+      </div>
       <%= submit_tag("Search", class: "btn btn-info") %>
     <% end %>
-    </div>
   </div>
 </div>
 
 <div class="featured">
   <h1 class="text-center">Pets of the day</h1>
 </div>
+<% content_for(:after_js) do %>
+  <script>
+    console.log("js is loaded")
+    var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+
+  </script>
+<% end %>
