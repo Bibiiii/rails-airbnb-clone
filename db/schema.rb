@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221160800) do
+ActiveRecord::Schema.define(version: 20170221181719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "animalreviews", force: :cascade do |t|
-    t.text     "comment"
-    t.integer  "user_id"
-    t.integer  "animal_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["animal_id"], name: "index_animalreviews_on_animal_id", using: :btree
-    t.index ["user_id"], name: "index_animalreviews_on_user_id", using: :btree
-  end
 
   create_table "animals", force: :cascade do |t|
     t.string   "name"
@@ -56,11 +46,15 @@ ActiveRecord::Schema.define(version: 20170221160800) do
   create_table "bookings", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "animal_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.date     "start_date"
     t.date     "end_date"
     t.boolean  "accepted"
+    t.text     "animal_review"
+    t.integer  "animal_rating"
+    t.text     "renter_review"
+    t.integer  "renter_rating"
     t.index ["animal_id"], name: "index_bookings_on_animal_id", using: :btree
     t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
   end
@@ -97,8 +91,6 @@ ActiveRecord::Schema.define(version: 20170221160800) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "animalreviews", "animals"
-  add_foreign_key "animalreviews", "users"
   add_foreign_key "animals", "species"
   add_foreign_key "animals", "users"
   add_foreign_key "bookings", "animals"
