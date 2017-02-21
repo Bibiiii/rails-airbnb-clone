@@ -14,6 +14,8 @@ class ProfilesController < ApplicationController
     @user.last_name = params[:user][:last_name]
     @user.username = params[:user][:username]
     @user.bio = params[:user][:bio]
+    @user.photo = params[:user][:photo]
+
 
     if @user.save
       redirect_to profile_show_path(@user)
@@ -21,4 +23,11 @@ class ProfilesController < ApplicationController
       render :new
     end
   end
+
+  private
+
+  def def profile_params
+    params.require(:user).permit(:username, :bio, :photo, :first_name, :last_name, :email)
+  end
+
 end
