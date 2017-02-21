@@ -1,5 +1,15 @@
 <h1> @animalreviews contains an array of reviews! </h1>
 
-<% @animalreviews.each do |review| %>
-  <%= review.comment %>
-<% end %>
+
+<ul>
+  <% @animalreviews.each do |review| %>
+  <li>
+   <% rating = review.rating.to_i %>
+   <% rating.times do %>
+   <i class="fa fa-star" aria-hidden="true"></i>
+   <% end %> -
+   <%= review.comment %>
+ </li>
+ <% end %>
+</ul>
+
