@@ -1,6 +1,14 @@
 <%= simple_form_for [@animal, @booking] do |f| %>
-  <%= f.input :start_date %>
-  <%= f.input :end_date %>
+  <%= f.input :start_date, as: :string, input_html:{id: "calendar"} %>
+  <%= f.input :end_date, as: :string, input_html:{id: "calendar2", style:"font-family:Arial, FontAwesome"}, placeholder:"&#xf073; until" %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
 
+
+<% content_for(:after_js) do %>
+  <script>
+    console.log("js is loaded")
+    var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+
+  </script>
+<% end %>
