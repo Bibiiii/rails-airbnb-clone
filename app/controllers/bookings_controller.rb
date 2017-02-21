@@ -1,4 +1,5 @@
 class BookingsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_animal, only: [:new, :create]
   def index
     @bookings = Booking.all
