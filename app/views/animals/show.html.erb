@@ -3,18 +3,19 @@
   <div class="row">
     <div class="col-xs-6">
 
-      <h1 class="text-center"> <%= @animal.name.capitalize %></h1>
+      <h1 class="text-center"> <%= @animal.name.capitalize %>
+        <%= link_to edit_animal_path(@animal) do %>
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        <% end %>
+      </h1>
     </div>
   </div>
-</div>
-
-<div class="container">
   <div class="row">
 
     <div class="col-xs-6">
-
+      <h3> <strong> Species: </strong> <%= @animal.species %> </h3>
       <p> <strong> Bio: </strong> <%= @animal.bio %> </p>
-      <p> <strong> Price per day: </strong> <%= @animal.price %> </p>
+      <p> <strong> Price per day: </strong> £<%= @animal.price %> </p>
     </div>
 
     <div class="col-xs-6">
@@ -40,10 +41,6 @@
 </div>
 </div>
 
-
-
-
-
 <div class="container">
   <div class="row">
     <% @animal.photos.each do |photo| %>
@@ -51,8 +48,19 @@
       <%= cl_image_tag photo.path, width: 260, height: 200, crop: :fill, class: "show-picture" %>
     </div>
     <% end %>
-
-
-
   </div>
 </div>
+
+
+<div class="container">
+  <h1 class="text-center">
+    Book <%= @animal.name %> the <%= @animal.species %>
+  </h1>
+
+  <div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+      <%= render "bookings/form" %>
+    </div>
+  </div>
+</div>
+

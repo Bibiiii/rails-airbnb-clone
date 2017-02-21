@@ -20,6 +20,10 @@
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
 
+
+    <!-- My bookings -->
+    <%= link_to "View my bookings", my_bookings_path %>
+
     <!-- Notification -->
     <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
     <div class="badge-container">
