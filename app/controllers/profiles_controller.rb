@@ -14,6 +14,8 @@ class ProfilesController < ApplicationController
     @user.last_name = params[:user][:last_name]
     @user.username = params[:user][:username]
     @user.bio = params[:user][:bio]
+    @user.photo = params[:user][:photo]
+
 
     if @user.save
       redirect_to profile_show_path(@user)
