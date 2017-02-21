@@ -16,11 +16,11 @@
     </div>
   <% end %>
 
-  <%= f.input :name%>
-  <%= f.input :species, :collection => ["Spider", "Snake", "Elephant", "T-Rex", "Unicorn", "Centaur", "Great-White Shark", "Achilles son of God"] %>
-  <%= f.input :bio%>
-  <%= f.input :location%>
-  <%= f.input :price%>
+  <%= f.input :name %>
+  <%= f.association :species, collection: Species.order('name ASC') %>
+  <%= f.input :bio %>
+  <%= f.input :location %>
+  <%= f.input :price %>
   <%= f.input :photos, as: :attachinary %>
   <%= f.submit "Submit your animal", class: "btn btn-primary" %>
 <% end %>
