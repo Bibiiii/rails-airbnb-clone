@@ -42,3 +42,16 @@
 .card-link:hover{
   opacity: 0.1;
 }
+
+.large-card {
+  position: relative;
+ }
+
+ .card-image {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  img {
+    border-radius: 50%;
+  }
+ }
