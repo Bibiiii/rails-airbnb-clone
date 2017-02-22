@@ -66,6 +66,25 @@
         <%= render "bookings/form" %>
       </div>
     </div>
+
+    <div class="col-xs-6">
+      <h2 class="text-center animal-h2">
+        Reviews
+      </h2>
+      <div class="animal-booking">
+        <ul>
+          <% Booking.all.each do |booking| %>
+            <% if @animal == booking.animal %>
+              <li>
+                <%= booking.animal_rating %> stars
+                <br>
+                <%= booking.animal_review %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
