@@ -9,16 +9,54 @@
 }
 
 .animal-pic {
-  height: 40vh;
-  width: 100%;
+  height: 50vh;
 }
 
 .carousel {
-  width: 700px;
-  margin: auto;
+  width: 100vw;
   margin-top: 70px;
 }
 
 .animal-name {
   padding: 30px;
+  font-weight: lighter;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  i {
+    font-size: 30px;
+  }
+}
+
+.animal-wrapper {
+  background-color: RGBA(237, 149, 142, 0.1);
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.animal-details {
+  padding: 30px;
+  h3 {
+    padding-bottom: 20px;
+  }
+}
+
+.animal-h2 {
+  padding: 15px;
+}
+
+.animal-booking {
+  background-color: RGBA(237, 149, 142, 0.1);
+  padding: 30px;
+  margin: 10px 0px 40px 0px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.book-animal {
+  padding-top: 10px;
+}
+
+.pick-date {
+  input {
+    width: 0.5em;
+  }
 }
