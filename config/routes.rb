@@ -11,11 +11,15 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
-  resources :bookings, only: [:index, :show, :destroy]
+  resources :bookings, only: [:index, :show, :destroy, :requests]
 
   get '/my_profile', to: 'profiles#my_profile', as: "my_profile"
 
   get '/my_bookings', to: 'profiles#my_bookings'
+
+  get '/my_requests', to: 'profiles#my_requests'
+
+  get '/my_requests/:id/accept', to: 'bookings#accept'
 
   mount Attachinary::Engine => "/attachinary"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -10,15 +10,23 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <div class="animal-pic" style="background-image: url(' <%= cl_image_path @animal.photos[0].path, width: 1200, height: 900 %>'); background-size: cover; background-position: center">
+      <div class="animal-pic" style="background-image: url(' <%= cl_image_path (@animal.photos? ? (@animal.photos[0].path) : "placeholder_animal_rca6hk"), width: 1200, height: 900 %>'); background-size: cover; background-position: center">
       </div>
     </div>
-    <% @animal.photos[1..-1].each do |photo| %>
+    <% if @animal.photos? %>
+      <% @animal.photos[1..-1].each do |photo| %>
       <div class="item">
         <div class="animal-pic" style="background-image: url('<%= cl_image_path photo.path %>'); background-size: cover; background-position: center">
         </div>
       </div>
     <% end %>
+    <% else %>
+      <div class="item">
+        <div class="animal-pic" style="background-image: url('<%= cl_image_path "placeholder_animal_rca6hk" %>'); background-size: cover; background-position: center">
+        </div>
+      </div>
+    <% end %>
+
   </div>
 
   <!-- Controls -->
