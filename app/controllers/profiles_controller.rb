@@ -3,10 +3,22 @@ before_action :authenticate_user!, only: [:edit, :update]
 
   def my_profile
     @user = current_user
+
+    @bookings = review_list
+  end
+
+  def review_list
+    bookings = []
+
+    Booking.all.each do |booking|
+      bookings << booking if booking.user == @user
+    end
+    return bookings
   end
 
   def show
     @user = User.find(params[:id])
+    @bookings = review_list
   end
 
   def my_bookings

@@ -22,8 +22,18 @@ class AnimalsController < ApplicationController
     marker.lng animal.longitude
     # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
   end
+    @bookings = review_list
 
     @booking = Booking.new
+  end
+
+  def review_list
+    bookings = []
+
+    Booking.all.each do |booking|
+      bookings << booking if booking.animal == @animal
+    end
+    return bookings
   end
 
   def create

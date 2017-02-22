@@ -87,28 +87,27 @@
         <div class="animal-booking reviews" style="padding-left: 0px; width: 800px;">
 
           <ul style="list-style-type: none">
-            <% Booking.all.each do |booking| %>
-              <% if @animal == booking.animal %>
+            <% review_count = 0 %>
 
-                <li>
-                  <% unless booking.animal_rating.nil? %>
-                    <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
-                    <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
-                    <%= "#{booking.user.first_name} #{booking.user.last_name} " %>
+            <% @bookings.each do |booking| %>
+              <% unless booking.animal_rating.nil? %>
+                <% review_count += 1 %>
 
-                    <% booking.animal_rating.times do %>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                    <% end %>
-                  <% else %>
-                    <h3>No reviews yet :(</h3>
-                  <% end %>
-                  <br>
-                  <%= booking.animal_review %>
-                </li>
+                <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+                <%= image_tag avatar_url, class: "avatar" %>
 
+                <%= booking.user.username %>
+
+                <% booking.animal_rating.times do %>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                <% end %>
+                <br>
+                <%= booking.animal_review %>
               <% end %>
             <% end %>
-
+            <% if review_count == 0 %>
+              <h3>No Reviews</h3>
+            <% end %>
           </ul>
 
         </div>
