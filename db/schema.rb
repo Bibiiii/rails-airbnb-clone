@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20170222112223) do
     t.datetime "updated_at", null: false
     t.string   "bio"
     t.integer  "price"
-    t.string   "location"
     t.integer  "species_id"
+    t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
     t.index ["species_id"], name: "index_animals_on_species_id", using: :btree
