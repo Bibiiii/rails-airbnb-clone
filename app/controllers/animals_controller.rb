@@ -3,9 +3,9 @@ class AnimalsController < ApplicationController
 
   def index
     @animals = Animal.search_animal(params[:species], Date.parse(params[:start]), Date.parse(params[:end]), params[:location])
-    @hash = Gmaps4rails.build_markers(@flats) do |flat, marker|
-      marker.lat flat.latitude
-      marker.lng flat.longitude
+    @hash = Gmaps4rails.build_markers(@animals) do |animal, marker|
+      marker.lat animal.latitude
+      marker.lng animal.longitude
       # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
   end
