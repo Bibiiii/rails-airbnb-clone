@@ -16,6 +16,13 @@ class AnimalsController < ApplicationController
 
   def show
     @animal = Animal.find(params[:id])
+    @animals = [@animal]
+    @hash = Gmaps4rails.build_markers(@animals) do |animal, marker|
+    marker.lat animal.latitude
+    marker.lng animal.longitude
+    # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+  end
+
     @booking = Booking.new
   end
 
@@ -47,6 +54,6 @@ class AnimalsController < ApplicationController
 private
 
 def animal_params
-  params.require(:animal).permit(:name, :bio, :species_id, :price, photos: [])
+  params.require(:animal).permit(:name, :bio, :species_id, :price, :location, photos: [])
 end
 end
