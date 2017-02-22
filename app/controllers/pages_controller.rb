@@ -3,5 +3,6 @@ class PagesController < ApplicationController
     @user = current_user
     @species = Species.all
     @animals = Animal.all
+    # @bookings = @user.bookings
   end
 end

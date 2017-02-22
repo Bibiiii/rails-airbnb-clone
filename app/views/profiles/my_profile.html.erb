@@ -16,6 +16,31 @@
       <h2> Name <%= @user.first_name %> <%= @user.last_name %></h2>
       <h3> Bio <%= @user.bio %></h3>
       </div>
+
+      <div class="col-xs-4">
+        <ul>
+            <% Booking.all.each do |booking| %>
+              <% if @user == booking.user %>
+                <li style="list-style-type: none;">
+
+                  <% unless booking.renter_rating.nil? %>
+
+                    <% avatar_url = booking.animal.user.photo? ? cl_image_path(booking.animal.user.photo.path) : booking.animal.user.facebook_picture_url || "http://placehold.it/30x30" %>
+                    <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+
+                    <%= "#{booking.animal.user.first_name} #{booking.animal.user.last_name}" %>
+                    <%  booking.renter_rating.times do %>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    <% end %>
+                  <% end %>
+
+                  <br>
+                  <%= booking.renter_review %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+      </div>
     </div>
   </div>
 </div>
