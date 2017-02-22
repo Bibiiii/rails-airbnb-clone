@@ -9,7 +9,7 @@
 }
 
 .animal-pic {
-  height: 50vh;
+  height: 60vh;
 }
 
 .carousel {
@@ -30,6 +30,7 @@
   background-color: RGBA(237, 149, 142, 0.1);
   border-radius: 5px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
 }
 
 .animal-details {
@@ -44,11 +45,13 @@
 }
 
 .animal-booking {
-  background-color: RGBA(237, 149, 142, 0.1);
+  background-color: white;
   padding: 30px;
-  margin: 10px 0px 40px 0px;
   border-radius: 5px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  width: 45%;
+  margin: auto;
+  margin-bottom: 40px;
 }
 
 .book-animal {
