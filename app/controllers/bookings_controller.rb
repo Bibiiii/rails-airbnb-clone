@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_animal, only: [:new, :create]
+  before_action :set_animal, only: [:new, :create, :requests]
   def index
     @bookings = Booking.all
   end
@@ -17,6 +17,13 @@ class BookingsController < ApplicationController
   # def new
   #   @booking = Booking.new
   # end
+
+  def accept
+    @booking = Booking.find(params[:id])
+    @booking.accepted = true
+    @booking.save
+    redirect_to my_requests_path
+  end
 
   def create
     @booking = Booking.new(booking_params)

@@ -1,13 +1,13 @@
 <div class="container">
 
-  <h1 class="text-center">
+  <h1 class="text-center page-title">
     View booking
   </h1>
   <p>
     <strong>Booking date: </strong> <%= @booking.created_at %>
   </p>
   <h3>
-    <strong> Animal: </strong> <%= @booking.animal.name %> - <%= @booking.animal.species %>
+    <strong> Animal: </strong> <%= @booking.animal.name %> the <%= @booking.animal.species.name %>
   </h3>
   <p>     <%= @booking.animal.bio %> </p>
 <br>
