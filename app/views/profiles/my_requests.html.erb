@@ -1,0 +1,90 @@
+<h1 class="text-center page-title">Booking Requests</h1>
+
+<div class="container">
+  <div class="row padded">
+
+    <h3>New Requests</h3>
+    <% @user.animals.each do |animal| %>
+      <% animal.bookings.each do |booking| %>
+        <% if !booking.accepted %>
+          <div class="col-xs-12 col-sm-4">
+
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+
+              <div class="card-description">
+                <h2> <%= booking.animal.name %></h2>
+                <p> <%= booking.start_date %> - <%= booking.end_date %> </p>
+                <% price = booking.animal.price * (booking.end_date - booking.start_date).to_i %>
+                <p> £<%= price %> </p>
+              </div>
+
+              <div class="accept-btn">
+                <%= link_to "Accept", { controller: :bookings, action: :accept, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="row padded">
+
+    <h3>Confirmed Requests</h3>
+    <% @user.animals.each do |animal| %>
+      <% animal.bookings.each do |booking| %>
+        <% if booking.accepted %>
+          <div class="col-xs-12 col-sm-4">
+
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+
+              <div class="card-description">
+                <h2> <%= booking.animal.name %></h2>
+                <p> <%= booking.start_date %> - <%= booking.end_date %> </p>
+                <% price = booking.animal.price * (booking.end_date - booking.start_date).to_i %>
+                <p> £<%= price %> </p>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+
+    <!--
+        <div class="col-xs-12 col-sm-4">
+
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%#= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+
+            <div class="card-description">
+              <h2> <%#= booking.animal.name %></h2>
+              <p> <%#= booking.start_date %> - <%#= booking.end_date %> </p>
+              <%# price = booking.animal.price * (booking.end_date - booking.start_date).to_i %>
+              <p> £<%#= price %> </p>
+            </div>
+
+            <div class="accept-btn">
+              <%#= link_to "Accept", controller: :bookings, action: :accept, id: booking.id, confirm: 'Are you sure?', class: "btn btn-primary" %>
+            </div>
+
+          </div>
+
+        </div>
+
+      <%# end %>
+    <%# end %>
+  </div>
+</div> -->
+<!-- display requests to book animal -->
+
+<!-- animal that has been requested to book -->
+
+
+<!-- button to accept or reject button -->

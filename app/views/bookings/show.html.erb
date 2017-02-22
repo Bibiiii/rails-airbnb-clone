@@ -1,16 +1,16 @@
 <div class="container">
 
-  <h1 class="text-center">
+  <h1 class="text-center page-title">
     View booking
   </h1>
   <p>
     <strong>Booking date: </strong> <%= @booking.created_at %>
   </p>
   <h3>
-    <strong> Animal: </strong> <%= @booking.animal.name %> - <%= @booking.animal.species %>
+    <strong> Animal: </strong> <%= @booking.animal.name %> the <%= @booking.animal.species.name %>
   </h3>
   <p>     <%= @booking.animal.bio %> </p>
-<br>
+  <br>
   <ul>
     <li> <strong> Dates: </strong> <%= @booking.start_date %>  -  <%= @booking.end_date %> </li>
     <% length = (@booking.end_date - @booking.start_date).to_i %>
@@ -22,5 +22,13 @@
 <h4>
   <strong> Status: </strong> <%= @booking.accepted ? "Confirmed" : "Awaiting confirmation by owner" %>
 </h4>
+
+  <div class="row">
+    <% if @animal_review_needed %>
+      <%= render "animal_review" %>
+    <% elsif @renter_review_needed %>
+      <%= render "renter_review" %>
+    <% end %>
+  </div>
 
 </div>

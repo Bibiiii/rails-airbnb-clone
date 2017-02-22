@@ -11,7 +11,10 @@ before_action :authenticate_user!, only: [:edit, :update]
 
   def my_bookings
     @user = current_user
+  end
 
+  def my_requests
+    @user = current_user
   end
 
   def edit

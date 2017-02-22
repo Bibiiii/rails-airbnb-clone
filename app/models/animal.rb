@@ -1,4 +1,6 @@
 class Animal < ApplicationRecord
+  geocoded_by :location
+  after_validation :geocode, if: :location_changed?
   belongs_to :user
   belongs_to :species
   has_many :bookings
