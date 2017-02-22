@@ -2,16 +2,10 @@ class AnimalsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    if params[:species].blank?
-      @animals = Animal.all
-    else
-      species = Species.find(params[:species])
-      @animals = Animal.where(species: species)
-    end
-
-      @hash = Gmaps4rails.build_markers(@flats) do |flat, marker|
-      marker.lat flat.latitude
-      marker.lng flat.longitude
+    @animals = Animal.search_animal(params[:species], Date.parse(params[:start]), Date.parse(params[:end]), params[:location])
+    @hash = Gmaps4rails.build_markers(@animals) do |animal, marker|
+      marker.lat animal.latitude
+      marker.lng animal.longitude
       # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
   end
@@ -28,8 +22,18 @@ class AnimalsController < ApplicationController
     marker.lng animal.longitude
     # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
   end
+    @bookings = review_list
 
     @booking = Booking.new
+  end
+
+  def review_list
+    bookings = []
+
+    Booking.all.each do |booking|
+      bookings << booking if booking.animal == @animal
+    end
+    return bookings
   end
 
   def create

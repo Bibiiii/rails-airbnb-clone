@@ -1,0 +1,20 @@
+<% review_count = 0 %>
+<% @bookings.each do |booking| %>
+  <% unless booking.renter_rating.nil? %>
+    <% review_count += 1 %>
+    <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+    <%= image_tag avatar_url, class: "avatar" %>
+
+    <%= booking.user.username %>
+
+    <% booking.renter_rating.times do %>
+      <i class="fa fa-star" aria-hidden="true"></i>
+    <% end %>
+    <br>
+    <%= booking.renter_review %>
+  <% end %>
+<% end %>
+
+<% if review_count == 0 %>
+  <h3>No Reviews</h3>
+<% end %>
