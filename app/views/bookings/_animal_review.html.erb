@@ -1,0 +1,6 @@
+<%= simple_form_for [@booking] do |f| %>
+  <%= f.input :animal_rating, collection: (1..5).to_a %>
+  <%= f.input :animal_review %>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

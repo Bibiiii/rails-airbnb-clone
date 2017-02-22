@@ -6,8 +6,8 @@
 
 // Paddings
 .padded {
-  padding-top: 5em;
-  padding-bottom: 5em;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
 // Backgrounds
@@ -26,4 +26,8 @@
 
 body {
   color: #1E402D;
+}
+
+.page-title {
+  padding-top: 40px;
 }
