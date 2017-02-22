@@ -25,7 +25,9 @@
 
   <div class="row">
     <% if @animal_review_needed %>
-      <%= render "review" %>
+      <%= render "animal_review" %>
+    <% elsif @renter_review_needed %>
+      <%= render "renter_review" %>
     <% end %>
   </div>
 
