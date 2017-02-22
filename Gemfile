@@ -1,6 +1,13 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
+gem "coffee-rails"
+gem "gmaps4rails"
+
+source 'https://rails-assets.org' do
+  gem "rails-assets-underscore"
+end
+gem "geocoder"
 gem 'omniauth-facebook'
 gem 'devise'
 gem 'rails', '5.0.1'
