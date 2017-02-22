@@ -2,12 +2,13 @@ class AnimalsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    if params[:species].blank?
-      @animals = Animal.all
-    else
-      species = Species.find(params[:species])
-      @animals = Animal.where(species: species)
-    end
+    # if params[:species].blank?
+      # @animals = Animal.all
+    # else
+    #   species = Species.find(params[:species])
+    #   @animals = Animal.where(species: species)
+    # end
+    @animals = Animal.search_animal(params[:species], Date.parse(params[:start]), Date.parse(params[:end]), params[:location])
   end
 
   def new

@@ -11,7 +11,7 @@
             <h2><%= animal.name %></h2>
             <p>£<%= animal.price %></p>
           </div>
-          <%= link_to "", animal_path(animal), class:"card-link"%>
+          <%= link_to "", animal_path(animal, start: params[:start], end: params[:end]), class:"card-link"%>
         </div>
       </div>
     <% end %>

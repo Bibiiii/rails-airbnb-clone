@@ -7,14 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Species.destroy_all
 
-species = ["Spider",
-  "Snake",
-  "Elephant",
-  "T-Rex",
-  "Unicorn",
-  "Centaur",
-  "Great-White Shark",
-  "Achilles son of God",
+species = [
+  "all animals",
   "aardvark",
   "albatross",
   "alligator",
@@ -24,7 +18,6 @@ species = ["Spider",
   "antelope",
   "ape",
   "armadillo",
-  "donkey",
   "baboon",
   "badger",
   "barracuda",
