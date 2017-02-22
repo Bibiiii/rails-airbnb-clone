@@ -1,34 +1,48 @@
+<h2 class="text-center page-title">You have booked</h2>
 <div class="container">
 
-  <h1 class="text-center page-title">
-    View booking
-  </h1>
-  <p>
-    <strong>Booking date: </strong> <%= @booking.created_at %>
-  </p>
-  <h3>
-    <strong> Animal: </strong> <%= @booking.animal.name %> the <%= @booking.animal.species.name %>
-  </h3>
-  <p>     <%= @booking.animal.bio %> </p>
-  <br>
-  <ul>
-    <li> <strong> Dates: </strong> <%= @booking.start_date %>  -  <%= @booking.end_date %> </li>
-    <% length = (@booking.end_date - @booking.start_date).to_i %>
-    <li><strong> Price: </strong> £<%= @booking.animal.price %> x <%= length %> days = £<%= @booking.animal.price * length %>
-    </li>
-  </ul>
-</p>
-<br>
-<h4>
-  <strong> Status: </strong> <%= @booking.accepted ? "Confirmed" : "Awaiting confirmation by owner" %>
-</h4>
-
   <div class="row">
-    <% if @animal_review_needed %>
-      <%= render "animal_review" %>
-    <% elsif @renter_review_needed %>
-      <%= render "renter_review" %>
-    <% end %>
+
+    <div class="col-xs-12 col-md-6">
+
+      <div class="pink-wrapper">
+        <div class="animal-details large-card">
+          <div class="card-content">
+            <p>
+              <strong>Booking date: </strong> <%= @booking.created_at %>
+            </p>
+            <h3>
+              <%= @booking.animal.name %> the <%= @booking.animal.species.name %>
+            </h3>
+            <p><%= @booking.animal.bio %></p>
+            <br>
+            <ul>
+              <li> <strong> Dates: </strong> <%= @booking.start_date %>  -  <%= @booking.end_date %> </li>
+              <% length = (@booking.end_date - @booking.start_date).to_i %>
+              <li><strong> Price: </strong> £<%= @booking.animal.price %> x <%= length %> days = £<%= @booking.animal.price * length %>
+              </li>
+            </ul>
+            <br>
+
+            <h4>
+              <strong> Status: </strong> <%= @booking.accepted ? "Confirmed" : "Awaiting confirmation by owner" %>
+            </h4>
+          </div>
+
+          <div class="card-image">
+            <%= cl_image_tag(@booking.animal.photos[0].path, :radius => :max, :height => 150, :width => 150, :crop => :fill) %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
+    <div class="col-xs-12 col-md-6">
+      <% if @animal_review_needed %>
+        <%= render "animal_review" %>
+      <% elsif @renter_review_needed %>
+        <%= render "renter_review" %>
+      <% end %>
+    </div>
 </div>
+

@@ -10,25 +10,33 @@
   <div class="navbar-wagon-right fixed-right hidden-xs hidden-sm">
 
     <!-- Search form -->
-    <form action="" class="navbar-wagon-search">
+<!--     <form action="" class="navbar-wagon-search">
       <input type="text" class="navbar-wagon-search-input" placeholder="Search something">
       <button type="submit" class="navbar-wagon-search-btn">
         <i class="fa fa-search"></i>
       </button>
-    </form>
+    </form> -->
 
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
 
 
     <!-- My bookings -->
-    <%= link_to "View my bookings", my_bookings_path %>
-
+    <%= link_to my_bookings_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+      <div class="badge-container">
+        <i class="fa fa-calendar"></i>
+      </div>
+    <% end %>
     <!-- Notification -->
+ <!--    <div class="navbar-wagon-item dropdown2">
+      <div class="dropdown2">
+        <i class="fa fa-envelope-o dropdown-toggle"></i>
+      </div>
+    </div> -->
     <%= link_to my_requests_path, class: "navbar-wagon-item navbar-wagon-link" do %>
     <div class="badge-container">
       <i class="fa fa-envelope-o"></i>
-      <div class="badge badge-blue">3</div>
+      <div class="badge badge-blue"><%= current_user.bookings.length  %></div>
     </div>
     <% end %>
 
