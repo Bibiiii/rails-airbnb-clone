@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
   def show
     @booking = Booking.find(params[:id])
 
-    if Time.now > @booking.end_date # && @booking.accepted ADD THIS FOR COMPLETION
+    if Time.now > @booking.end_date && @booking.accepted
       if @booking.animal_rating.nil? && @booking.user == current_user
         @animal_review_needed = true
       else
@@ -35,7 +35,7 @@ class BookingsController < ApplicationController
     @booking.renter_review = params[:booking][:renter_review] if @booking.renter_review.nil?
 
     if @booking.save
-      redirect_to root_path
+      redirect_to animal_path(@animal)
     else
       render :new
     end

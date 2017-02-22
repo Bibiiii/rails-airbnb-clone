@@ -1,8 +1,12 @@
 <div class="container">
 <h1>My Bookings</h1>
+
+<h3>Awaiting</h3>
   <div class="row padded">
     <% @user.bookings.each do |booking| %>
       <div class="col-xs-12 col-sm-4">
+      <% if !booking.accepted %>
+
         <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (booking.animal.photos? ? (booking.animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
           <div class="card-category"> <%= booking.animal.species.name %> </div>
           <div class="card-description">
@@ -14,6 +18,33 @@
           <img class="card-user avatar" src="user.jpg">
           <%= link_to "", booking_path(booking), class:"card-link"%>
         </div>
+
+      <% end %>
+
+      </div>
+    <% end %>
+  </div>
+
+  <h3>Confirmed</h3>
+  <div class="row padded">
+    <% @user.bookings.each do |booking| %>
+      <div class="col-xs-12 col-sm-4">
+      <% if booking.accepted %>
+
+        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (booking.animal.photos? ? (booking.animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+          <div class="card-category"> <%= booking.animal.species.name %> </div>
+          <div class="card-description">
+            <h2> <%= booking.animal.name %></h2>
+            <p> <%= booking.start_date %> - <%= booking.end_date %> </p>
+            <% price = booking.animal.price * (booking.end_date - booking.start_date).to_i %>
+            <p> £<%= price %> </p>
+          </div>
+          <img class="card-user avatar" src="user.jpg">
+          <%= link_to "", booking_path(booking), class:"card-link"%>
+        </div>
+
+      <% end %>
+
       </div>
     <% end %>
   </div>
