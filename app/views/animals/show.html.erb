@@ -1,7 +1,7 @@
 
 <div id="animal-carousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
-   <ol class="carousel-indicators">
+  <ol class="carousel-indicators">
     <li data-target="#animal-carousel" data-slide-to="0" class="active"></li>
     <li data-target="#animal-carousel" data-slide-to="1"></li>
     <li data-target="#animal-carousel" data-slide-to="2"></li>
@@ -18,7 +18,9 @@
       <div class="item">
         <div class="animal-pic" style="background-image: url('<%= cl_image_path photo.path %>'); background-size: cover; background-position: center">
         </div>
+    
       </div>
+    </div>
     <% end %>
     <% else %>
       <div class="item">
@@ -45,37 +47,37 @@
   <div class="row">
 
     <div class="col-xs-12">
-        <h1 class="text-center animal-name"> <%= @animal.name.capitalize %> the <%= @animal.species.name.capitalize %>
+      <h1 class="text-center animal-name"> <%= @animal.name.capitalize %> the <%= @animal.species.name.capitalize %>
         <%= link_to edit_animal_path(@animal) do %>
-          <i class="fa fa-pencil" aria-hidden="true"></i>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
         <% end %>
-        </h1>
+      </h1>
     </div>
 
   </div>
 
-<div class="animal-wrapper">
-  <div class="row">
+  <div class="animal-wrapper">
+    <div class="row">
 
-    <div class="col-xs-6">
-      <div class="animal-details">
-        <h3 class="text-center"> <strong> Species: </strong> <%= @animal.species.name %> </h3>
-        <p> <strong> Bio: </strong> <%= @animal.bio %> </p>
-        <p> <strong> Price per day: </strong> £<%= @animal.price %> </p>
+      <div class="col-xs-6">
+        <div class="animal-details">
+          <h3 class="text-center"> <strong> Species: </strong> <%= @animal.species.name %> </h3>
+          <p> <strong> Bio: </strong> <%= @animal.bio %> </p>
+          <p> <strong> Price per day: </strong> £<%= @animal.price %> </p>
+        </div>
       </div>
-    </div>
 
-    <div class="col-xs-6">
-      <h2 class="text-center animal-h2">
-        Book me!
-      <!-- <#%= @animal.name %> the <%#= @animal.species.name %> -->
-      </h2>
-      <div class="animal-booking">
-        <%= render "bookings/form" %>
+      <div class="col-xs-6">
+        <h2 class="text-center animal-h2">
+          Book me!
+          <!-- <#%= @animal.name %> the <%#= @animal.species.name %> -->
+        </h2>
+        <div class="animal-booking">
+          <%= render "bookings/form" %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 </div>
 
@@ -90,19 +92,22 @@
 </div> -->
 
 <div id="map"> </div>
-      <script>
-        function initMap() {
-          var uluru = {lat: -25.363, lng: 131.044};
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: uluru
-          });
-          var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-          });
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map' } }, function() {
+        markers = handler.addMarkers(<%= raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        if (markers.length == 0) {
+          handler.getMap().setZoom(2);
+        } else if (markers.length == 1) {
+          handler.getMap().setZoom(14);
         }
-      </script>
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB15Xrkdt-DO-ycMFyhqpKQMNeZ-lei4k&callback=initMap">
-    </script>
+      });
+    });
+  <% end %>
+<% end %>
+
+
