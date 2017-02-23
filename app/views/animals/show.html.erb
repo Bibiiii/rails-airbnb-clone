@@ -14,12 +14,12 @@
         @background_image = cl_image_path (@animal.photos[0].path)
       else
         @background_image = cl_image_path "placeholder_animal_rca6hk"
-      end %>
-      <div class="animal-pic" style="background-image: url('<%= @background_image %>'); background-size: cover; background-position: center">
+        end %>
+        <div class="animal-pic" style="background-image: url('<%= @background_image %>'); background-size: cover; background-position: center">
+        </div>
       </div>
-    </div>
 
-    <% if @animal.photos? %>
+      <% if @animal.photos? %>
       <% @animal.photos[1..-1].each do |photo| %>
       <div class="item">
         <div class="animal-pic" style="background-image: url('<%= @background_image %>'); background-size: cover; background-position: center">
@@ -27,97 +27,178 @@
       </div>
       <% end %>
       <% else %>
-        <div class="item">
-          <div class="animal-pic" style="background-image: url('<%= @background_image %>'); background-size: cover; background-position: center">
+      <div class="item">
+        <div class="animal-pic" style="background-image: url('<%= @background_image %>'); background-size: cover; background-position: center">
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#animal-carousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#animal-carousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+
+</div>
+
+<!-- Overview profile -->
+<div class="container">
+  <div class="pink-wrapper padded">
+    <div class="row">
+      <div class="col-xs-12 col-lg-8">
+        <div class="col-xs-2 col-xs-offset-1">
+          <div class="header-align">
+            <% avatar_url = @animal.user.photo? ? cl_image_path(@animal.user.photo.path) : @animal.user.facebook_picture_url || "http://placehold.it/30x30" %>
+            <%= image_tag avatar_url, class: "avatar-xlarge" %>
           </div>
         </div>
-     <% end %>
-  </div>
-
-  <!-- Controls -->
-  <a class="left carousel-control" href="#animal-carousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#animal-carousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-
-      <h1 class="text-center animal-name"> <%= @animal.name.capitalize %> the <%= @animal.species.name.capitalize %>
-        <%= link_to edit_animal_path(@animal) do %>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-        <% end %>
-      </h1>
-    </div>
-  </div>
-
-  <div class="pink-wrapper">
-    <div class="row">
-      <div class="col-xs-6">
-
-        <div class="animal-details">
-          <h3 class="text-center"> <strong> Species: </strong> <%= @animal.species.name %> </h3>
-          <p> <strong> Bio: </strong> <%= @animal.bio %> </p>
-          <p> <strong> Price per day: </strong> £<%= @animal.price %> </p>
-        </div>
-      </div>
-
-      <div class="col-xs-6">
-        <h2 class="text-center animal-h2">
-          Book me!
-        </h2>
-        <div class="white-container">
-          <%= render "bookings/form" %>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-
-        <h2 class="text-center animal-h2">Reviews</h2>
-
-        <div class="white-container reviews" style="padding-left: 0px; width: 800px;">
-          <% unless @bookings.nil? %>
-            <ul style="list-style-type: none">
-              <% review_count = 0 %>
-
-              <% @bookings.each do |booking| %>
-                <% unless booking.animal_rating.nil? %>
-                  <% review_count += 1 %>
-
-                  <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
-                  <%= image_tag avatar_url, class: "avatar" %>
-
-                  <%= booking.user.username %>
-
-                  <% booking.animal_rating.times do %>
+        <div class="col-xs-8 col-lg-8">
+          <div class="row">
+            <h1> <%= @animal.name.capitalize %>
+              <%= link_to edit_animal_path(@animal) do %>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              <% end %>
+            </h1>
+          </div>
+          <div class="row">
+            <div class="spaced-flex">
+              <div>
+                <h1><%= Animal::LOGOS[@animal.species.name.downcase] %></h1>
+                <p><em><%= @animal.species.name %></em></p>
+              </div>
+              <div>
+                <h3 class="bottom-margin">
+                  <% rating = @animal.bookings.average(:animal_rating).round(0).to_i %>
+                  <% rating.times do %>
                     <i class="fa fa-star" aria-hidden="true"></i>
                   <% end %>
-                  <br>
-                  <%= booking.animal_review %>
-                <% end %>
-              <% end %>
-              <% if review_count == 0 %>
-                <h3>No Reviews</h3>
-              <% end %>
-            </ul>
-          <% end %>
+                  <% (5-rating).times do %>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <% end %>
+                </h3>
+                <p><em>Average rating</em></p>
+              </div>
+              <div>
+                <h3 class="bottom-margin">
+                  <% if @animal.price < 50 %>
+                    <% 1.times do %>
+                      <i class="fa fa-gbp" aria-hidden="true"></i>
+                    <% end %>
+                  <% elsif @animal.price < 200 %>
+                    <% 2.times do %>
+                      <i class="fa fa-gbp" aria-hidden="true"></i>
+                    <% end %>
+                  <% else %>
+                    <% 3.times do %>
+                      <i class="fa fa-gbp" aria-hidden="true"></i>
+                    <% end %>
+                  <% end %>
+                </h3>
+                <p><em>Price</em></p>
+              </div>
+            </div>
+          </div>
         </div>
-
       </div>
-
+      <div class="col-xs-12 col-lg-4">
+        <div class="panel panel-primary fixme panel-margin">
+          <div class="panel-heading">
+            <h3 class="panel-title">Book now!</h3>
+          </div>
+          <div class="panel-body">
+            <%= render "bookings/form" %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
+<!-- animal details -->
+  <div class="pink-wrapper">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="animal-panels">
+          <h3>Animal details:</h3>
+          <ul style="list-style-type: none;">
+            <li><strong> Species: </strong> <%= @animal.species.name %> </li> <br>
+            <li> <strong> Bio: </strong> <%= @animal.bio %> </li> <br>
+            <li> <strong> Price per day: </strong> £<%= @animal.price %> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- REVIEWS -->
+  <div class="pink-wrapper">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="animal-panels">
+          <h3>Reviews</h3>
+          <% unless @bookings.nil? %>
+          <% review_count = 0 %>
+            <% @bookings.each do |booking| %>
+                <% unless booking.animal_rating.nil? %>
+                  <% review_count += 1 %>
+                  <div class="white-container reviews" style="padding-left: 0px; width: 90%;">
+                  <ul style="list-style-type: none">
+                  <li>
+                    <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+                    <%= image_tag avatar_url, class: "avatar" %>
+
+                    <%= booking.user.username %>
+
+                    <% booking.animal_rating.times do %>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    <% end %>
+                    <br>
+                    <%= booking.animal_review %>
+                  </div>
+                  </li>
+                  </ul>
+                <% end %>
+            <% end %>
+
+            <% if review_count == 0 %>
+              <h3>No Reviews</h3>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- owner profile -->
+  <div class="pink-wrapper padded-bottom">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="animal-panels">
+          <h3>Owner profile</h3>
+          <div class="col-xs-3 col-xs-offset-1">
+            <h4>
+              <% avatar_url = @animal.user.photo? ? cl_image_path(@animal.user.photo.path) : @animal.user.facebook_picture_url || "http://placehold.it/30x30" %>
+              <%= image_tag avatar_url, class: "avatar-xlarge" %>
+
+              <%= @animal.user.username %>
+            </h4>
+            <p><em><%= @animal.user.created_at.strftime("Joined on %b %d, %Y") %></em></p>
+          </div>
+          <div class="col-xs-8">
+          <br>
+            <p><%= @animal.user.bio %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
 <!-- <div class="container">
   <div class="row">
@@ -128,22 +209,31 @@
     <#% end %>
   </div>
 </div> -->
-
-<div id="map"> </div>
-<% content_for(:after_js) do %>
-  <%= javascript_tag do %>
-    $(document).ready(function() {
-      var handler = Gmaps.build('Google');
-      handler.buildMap({ internal: { id: 'map' } }, function() {
-        markers = handler.addMarkers(<%= raw @hash.to_json %>);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-        if (markers.length == 0) {
-          handler.getMap().setZoom(2);
-        } else if (markers.length == 1) {
-          handler.getMap().setZoom(14);
-        }
-      });
-    });
-  <% end %>
-<% end %>
+  <div class="pink-wrapper padded-bottom">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="animal-panels">
+          <h3>Location</h3>
+          <div id="map"> </div>
+          <% content_for(:after_js) do %>
+            <%= javascript_tag do %>
+              $(document).ready(function() {
+              var handler = Gmaps.build('Google');
+              handler.buildMap({ internal: { id: 'map' } }, function() {
+              markers = handler.addMarkers(<%= raw @hash.to_json %>);
+              handler.bounds.extendWith(markers);
+              handler.fitMapToBounds();
+              if (markers.length == 0) {
+              handler.getMap().setZoom(2);
+              } else if (markers.length == 1) {
+              handler.getMap().setZoom(14);
+              }
+              });
+              });
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

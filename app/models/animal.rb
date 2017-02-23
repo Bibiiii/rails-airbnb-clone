@@ -28,4 +28,46 @@ class Animal < ApplicationRecord
       end
     end
   end
+
+  LOGOS = {
+    'snail' => '🐌',
+    'snake' => '🐍',
+    'horse' => '🐎',
+    'sheep' => '🐑',
+    'monkey' => '🐒',
+    'chicken' => '🐔',
+    'boar' => '🐗',
+    'elephant' => '🐘',
+    'octopus' => '🐙',
+    'bug' => '🐛',
+    'ant' => '🐜',
+    'honeybee' => '🐝',
+    'ladybird' => '🐞',
+    'fish' => '🐠',
+    'blowfish' => '🐡',
+    'turtle' => '🐢',
+    'chick' => '🐥',
+    'bird' => '🐦',
+    'penguin' => '🐧',
+    'koala' => '🐨',
+    'poodle' => '🐩',
+    'camel' => '🐫',
+    'dolphin' => '🐬',
+    'mouse' => '🐭',
+    'cow' => '🐮',
+    'tiger' => '🐯',
+    'rabbit' => '🐰',
+    'cat' => '🐱',
+    'dragon' => '🐲',
+    'whale' => '🐳',
+    'horse' => '🐴',
+    'monkey' => '🐵',
+    'dog' => '🐶',
+    'pig' => '🐷',
+    'frog' => '🐸',
+    'hamster' => '🐹',
+    'wolf' => '🐺',
+    'bear' => '🐻',
+    'panda' => '🐼'
+  }
 end
