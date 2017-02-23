@@ -14,17 +14,20 @@
   <% if message.body %>
    <% user = User.find(message.user_id) %>
    <div>
-    <div >
-     <div ><strong><%= user.email %></strong> <%= message.message_time.strftime(" %l:%M%p on the %e %b   ") %></div>
-      <div>
+<% if user.first_name? %>
+        <div ><strong><%= user.first_name %></strong> <%= message.message_time.strftime(" %l:%M%p on the %e %b   ") %></div>
+  <% elsif user.username?  %>
+        <div ><strong><%= user.username %></strong> <%= message.message_time.strftime(" %l:%M%p on the %e %b   ") %></div>
+     <% else %>
+       <div ><strong><%= user.email %></strong> <%= message.message_time.strftime(" %l:%M%p on the %e %b   ") %></div>
+     <% end %>
        <div>
          <p>  <%= message.body %></p>
       </div>
-    </div>
-   </div>
  </div>
  <% end %>
 <% end %>
+
 
 
 
@@ -38,3 +41,4 @@
    <%= f.submit %>
  </div>
 <% end %>
+
