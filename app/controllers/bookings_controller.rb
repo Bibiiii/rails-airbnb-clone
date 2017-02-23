@@ -36,7 +36,7 @@ class BookingsController < ApplicationController
 
     # Reset @___review_needed variables to false?
     if @booking.save
-      redirect_to animal_path(@animal)
+      redirect_to root_path
     else
       render :new
     end
