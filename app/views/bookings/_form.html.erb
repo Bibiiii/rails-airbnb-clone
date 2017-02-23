@@ -6,10 +6,25 @@
     </div>
 <% end %>
 
-
 <% content_for(:after_js) do %>
   <script>
-    console.log("js is loaded")
+    console.log("js is loaded");
     var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+
+    // All dates before today are disabled
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
+
+    // Already booked dates are greyed out
+    <% taken_dates = [] %>
+    <% Booking.all.each do |booking| %>
+      <% if booking.animal == @animal %>
+
+        <% (booking.start_date..booking.end_date).each do |date| %>
+          <% taken_dates << date.strftime("%Y-%m-%d") %>
+        <% end %>
+
+      <% end %>
+    <% end %>
+      myCalendar.setInsensitiveDays(<%= raw taken_dates %>);
   </script>
 <% end %>
