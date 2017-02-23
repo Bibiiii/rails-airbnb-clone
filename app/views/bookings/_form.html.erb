@@ -6,10 +6,15 @@
     </div>
 <% end %>
 
-
 <% content_for(:after_js) do %>
   <script>
-    console.log("js is loaded")
+    console.log("js is loaded");
     var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+
+    // All dates before today are disabled
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
+
+    // BAM! TAKEN DATES ARE GREYED OUT THIS TOOK ME FUCKING AGES
+    myCalendar.setInsensitiveDays(<%= raw @taken_dates %>);
   </script>
 <% end %>

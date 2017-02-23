@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get "my_profile/edit", to: "profiles#edit"
   patch "my_profile/edit", to: "profiles#update", as: "profile_edit"
 
