@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
+  resources :conversations do
+    resources :messages
+  end
+
   resources :bookings, only: [:index, :show, :destroy, :requests]
 
   get '/my_profile', to: 'profiles#my_profile', as: "my_profile"
