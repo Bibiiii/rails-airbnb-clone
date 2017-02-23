@@ -41,6 +41,9 @@ before_action :authenticate_user!, only: [:edit, :update]
     @user.username = params[:user][:username]
     @user.bio = params[:user][:bio]
     @user.photo = params[:user][:photo]
+    @user.location = params[:user][:location]
+    @user.job = params[:user][:job]
+    @user.likes = params[:user][:likes]
 
 
     if @user.save

@@ -18,7 +18,7 @@ class Animal < ApplicationRecord
     end
 
     # Dates
-    unless start_date.empty? || end_date.empty?
+    unless start_date.nil? || end_date.nil?
       animals_by_species_dates = animals_by_species.select do |animal|
         animal.available_for_booking?(start_date, end_date)
       end
