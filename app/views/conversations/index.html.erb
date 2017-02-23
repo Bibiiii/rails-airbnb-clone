@@ -1,31 +1,44 @@
-<div >
+<br>
+<div class="text-center">
  <h3>Mailbox</h3>
  <div >
   <div >
    <% @conversations.each do |conversation| %>
    <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
-    <% if conversation.sender_id == current_user.id %>
-      <% recipient = User.find(conversation.recipient_id) %>
-    <% else %>
-      <% recipient = User.find(conversation.sender_id) %>
-    <% end %>
-    <%= link_to recipient.first_name,   conversation_messages_path(conversation)%>
+   <% if conversation.sender_id == current_user.id %>
+   <% recipient = User.find(conversation.recipient_id) %>
+   <% else %>
+   <% recipient = User.find(conversation.sender_id) %>
    <% end %>
-  <% end %>
-  </div>
+   <% if User.find(conversation.recipient_id).first_name? %>
+      <%= link_to "Your chatlog with user " + User.find(conversation.recipient_id).first_name, conversation_messages_path(conversation)%>
+   <% elsif User.find(conversation.recipient_id).username?  %>
+      <%= link_to "Your chatlog with user " + User.find(conversation.recipient_id).username, conversation_messages_path(conversation)%>
+    <% else %>
+      <%= link_to "Your chatlog with user " + User.find(conversation.recipient_id).email, conversation_messages_path(conversation)%>
+    <% end %>
+   <% end %>
+   <% end %>
  </div>
+</div>
 </div>
 <div >
 
+  <div class="text-center" >
+    <h3>All Users</h3>
 
- <h3>All Users</h3>
-  <div >
-   <% @users.each do |user| %>
+    <% @users.each do |user| %>
     <% if user.id != current_user.id %>
-     <div >
-   <%= user.email %> <%= link_to "Message me!", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%>
- </div>
-  <% end %>
- <% end %>
+    <div >
+     <% if user.first_name? %>
+        <p>   <%= user.first_name %> --  <%= link_to "Message me!", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%> </p>
+     <% elsif user.username?  %>
+        <p>   <%= user.username %> --  <%= link_to "Message me!", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%> </p>
+     <% else %>
+        <p>   <%= user.email %> --  <%= link_to "Message me!", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%> </p>
+     <% end %>
+   </div>
+   <% end %>
+   <% end %>
  </div>
 </div>

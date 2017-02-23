@@ -21,6 +21,14 @@
     <% if user_signed_in? %>
 
 
+    <!-- My Messages -->
+      <%= link_to conversations_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+      <div class="badge-container">
+        <i class="fa fa-address-book"></i>
+      </div>
+    <% end %>
+
+
     <!-- My bookings -->
     <%= link_to my_bookings_path, class: "navbar-wagon-item navbar-wagon-link" do %>
       <div class="badge-container">
