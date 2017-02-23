@@ -22,14 +22,14 @@
                 <p> £<%= price %> </p>
               </div>
 
-              <div class="accept-btn">
+              <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+              <%= link_to profile_show_path(booking.user) do %>
+              <%= image_tag avatar_url, class: "avatar card-user" %>
+              <% end %>
+
+              <div class="card-btn">
                 <%= link_to "Accept", { controller: :bookings, action: :accept, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
               </div>
-
-              <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
-              <%= image_tag avatar_url, class: "avatar card-user" %>
-              <%= link_to "", profile_show_path(booking.user), class:"card-link"%>
-
             </div>
           </div>
         <% end %>
