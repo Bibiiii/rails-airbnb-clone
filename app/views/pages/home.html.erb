@@ -13,7 +13,10 @@
         <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
       </div>
        <div class="form-group">
-        <input type="text" name="location" placeholder="location" class="form-control">
+        <input type="text" name="location" placeholder="Postcode" class="form-control">
+      </div>
+      <div class="form-group">
+        <input id="radius" name="radius" type="number" placeholder="Radius(KM)" class="form-control" />
       </div>
       <%= submit_tag("Search", class: "btn btn-info") %>
     <% end %>

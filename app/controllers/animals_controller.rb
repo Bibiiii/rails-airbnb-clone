@@ -2,7 +2,12 @@ class AnimalsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @animals = Animal.search_animal(params[:species], Date.parse(params[:start]), Date.parse(params[:end]), params[:location])
+    unless params[:start].empty? || params[:end].empty?
+      @animals = Animal.search_animal(params[:species], Date.parse(params[:start]), Date.parse(params[:end]), params[:location], params[:radius])
+    else
+      @animals = Animal.search_animal(params[:species], params[:start], params[:end], params[:location], params[:radius])
+    end
+
     @hash = Gmaps4rails.build_markers(@animals) do |animal, marker|
       marker.lat animal.latitude
       marker.lng animal.longitude
