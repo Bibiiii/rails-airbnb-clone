@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get "my_profile/edit", to: "profiles#edit"
   patch "my_profile/edit", to: "profiles#update", as: "profile_edit"
 
@@ -9,6 +10,10 @@ Rails.application.routes.draw do
 
   resources :animals do
     resources :bookings, only: [:new, :create]
+  end
+
+  resources :conversations do
+    resources :messages
   end
 
   resources :bookings, only: [:index, :show, :destroy, :requests]

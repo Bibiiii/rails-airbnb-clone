@@ -21,10 +21,19 @@
     <% if user_signed_in? %>
 
 
+    <!-- My Messages -->
+      <%= link_to conversations_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+      <div class="badge-container">
+        <i class="fa fa-address-book" data-toggle="tooltip" data-placement="bottom" title="Messages"></i>
+        <div class="badge badge-blue"> 0 </div>
+      </div>
+    <% end %>
+
+
     <!-- My bookings -->
     <%= link_to my_bookings_path, class: "navbar-wagon-item navbar-wagon-link" do %>
       <div class="badge-container">
-        <i class="fa fa-calendar"></i>
+        <i class="fa fa-calendar" data-toggle="tooltip" data-placement="bottom" title="Booked pets"></i>
       </div>
     <% end %>
     <!-- Notification -->
@@ -33,9 +42,11 @@
         <i class="fa fa-envelope-o dropdown-toggle"></i>
       </div>
     </div> -->
+
+    <!-- My Requested Bookings -->
     <%= link_to my_requests_path, class: "navbar-wagon-item navbar-wagon-link" do %>
     <div class="badge-container">
-      <i class="fa fa-envelope-o"></i>
+      <i class="fa fa-envelope-o" data-toggle="tooltip" data-placement="bottom" title="Requests"></i>
       <div class="badge badge-blue"><%= current_user.bookings.length  %></div>
     </div>
     <% end %>
@@ -97,6 +108,11 @@
         <li>
           <%= link_to root_path do %>
           <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_animal_url do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Animal
           <% end %>
         </li>
         <li>
