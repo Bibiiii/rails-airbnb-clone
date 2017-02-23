@@ -14,17 +14,7 @@
     // All dates before today are disabled
     myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
 
-    // Already booked dates are greyed out
-    <% taken_dates = [] %>
-    <% Booking.all.each do |booking| %>
-      <% if booking.animal == @animal %>
-
-        <% (booking.start_date..booking.end_date).each do |date| %>
-          <% taken_dates << date.strftime("%Y-%m-%d") %>
-        <% end %>
-
-      <% end %>
-    <% end %>
-      myCalendar.setInsensitiveDays(<%= raw taken_dates %>);
+    // BAM! TAKEN DATES ARE GREYED OUT THIS TOOK ME FUCKING AGES
+    myCalendar.setInsensitiveDays(<%= raw @taken_dates %>);
   </script>
 <% end %>
