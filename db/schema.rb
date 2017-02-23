@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170223143126) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,8 +22,8 @@ ActiveRecord::Schema.define(version: 20170223143126) do
     t.datetime "updated_at", null: false
     t.text     "bio"
     t.integer  "price"
-    t.integer  "species_id"
     t.string   "location"
+    t.integer  "species_id"
     t.float    "latitude"
     t.float    "longitude"
     t.index ["species_id"], name: "index_animals_on_species_id", using: :btree
