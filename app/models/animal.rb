@@ -18,16 +18,23 @@ class Animal < ApplicationRecord
     end
 
     # Dates
-    animals_by_species_dates = animals_by_species.select do |animal|
-      animal.available_for_booking?(start_date, end_date)
+    unless start_date.empty? || end_date.empty?
+      animals_by_species_dates = animals_by_species.select do |animal|
+        animal.available_for_booking?(start_date, end_date)
+      end
+    else
+      animals_by_species_dates = animals_by_species
     end
 
     # Location
-    animals_by_species_dates_location = []
-    Animal.near(location, radius).each do |animal|
-      animals_by_species_dates_location << animal if animals_by_species_dates.include?(animal)
+    unless location.empty? || radius.empty?
+      animals_by_species_dates_location = []
+      Animal.near(location, radius).each do |animal|
+        animals_by_species_dates_location << animal if animals_by_species_dates.include?(animal)
+      end
+    else
+      animals_by_species_dates_location = animals_by_species_dates
     end
-
 
     return animals_by_species_dates_location
   end
