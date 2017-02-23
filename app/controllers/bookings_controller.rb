@@ -79,7 +79,7 @@ class BookingsController < ApplicationController
         # Making sure the user isn't booking their own animal
         unless @booking.user == @booking.animal.user
           @booking.save
-          flash_message(false, 'Success! You have booked #{@animal.name}')
+          flash_message(false, "Success! You have booked #{@animal.name}")
           redirect_to booking_path(@booking)
         else
           flash_message(true, "You can't book your own animal")

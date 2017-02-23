@@ -33,5 +33,6 @@
     console.log("js is loaded")
     var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
 
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
   </script>
 <% end %>
