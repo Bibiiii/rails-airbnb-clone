@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/my_bookings', to: 'profiles#my_bookings'
 
   patch '/bookings/:id', to: 'bookings#update'
-  
+
   get '/my_requests', to: 'profiles#my_requests'
 
   get '/my_requests/:id/accept', to: 'bookings#accept'
