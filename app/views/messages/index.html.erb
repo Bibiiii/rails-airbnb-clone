@@ -1,0 +1,32 @@
+<% if @over_ten %>
+ <%= link_to "Show Previous", root_path %>
+<% end %>
+<div>
+ <% @messages.each do |message| %>
+  <% if message.body %>
+   <% user = User.find(message.user_id) %>
+   <div>
+    <div >
+     <div ><strong><%= user.first_name %></strong> <%= message.message_time %></div>
+      <div>
+       <div>
+         <%= message.body %>
+      </div>
+    </div>
+   </div>
+ </div>
+ <% end %>
+<% end %>
+
+
+
+</div>
+<%= simple_form_for [@conversation, @message] do |f| %>
+ <div>
+   <%= f.input :body%>
+ </div>
+
+ <div>
+   <%= f.submit %>
+ </div>
+<% end %>

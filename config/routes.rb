@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
+  resources :conversations do
+    resources :messages
+  end
+
   resources :bookings, only: [:index, :show, :destroy, :requests]
 
   get '/my_profile', to: 'profiles#my_profile', as: "my_profile"
@@ -18,7 +22,7 @@ Rails.application.routes.draw do
   get '/my_bookings', to: 'profiles#my_bookings'
 
   patch '/bookings/:id', to: 'bookings#update'
-  
+
   get '/my_requests', to: 'profiles#my_requests'
 
   get '/my_requests/:id/accept', to: 'bookings#accept'
