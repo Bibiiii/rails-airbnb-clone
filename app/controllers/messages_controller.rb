@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
       @over_ten = true
       @messages = @messages[-10..-1]
     end
-    if params[:m]
+    if params[:read_option] == "all"
       @over_ten = false
       @messages = @conversation.messages
     end

@@ -9,6 +9,8 @@ class ConversationsController < ApplicationController
   def create
     if Conversation.where(sender_id: params[:sender_id]).where(recipient_id: params[:recipient_id]).any?
       @conversation = Conversation.where(sender_id: params[:sender_id]).where(recipient_id: params[:recipient_id]).first
+    elsif Conversation.where(sender_id: params[:recipient_id]).where(recipient_id: params[:sender_id]).any?
+      @conversation = Conversation.where(sender_id: params[:recipient_id]).where(recipient_id: params[:sender_id]).first
     else
       @conversation = Conversation.create!(conversation_params)
     end
