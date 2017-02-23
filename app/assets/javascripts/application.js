@@ -10,3 +10,7 @@
 //= require attachinary
 //= require dhtmlxcalendar
 //= require_tree .
+
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+})
