@@ -58,10 +58,19 @@ class BookingsController < ApplicationController
     redirect_to my_requests_path
   end
 
+  def flash_message(error, notice)
+    flash[:title] = error == false ? "Error!" : "Success!"
+    flash[:notice] = notice
+  end
+
   def create
     # could add that users can't book their own animal?
     @booking = Booking.new(booking_params)
-    if @booking.start_date < @booking.end_date && @booking.start_date > Time.now
+
+    if @booking.start_date.nil? || @booking.end_date.nil?
+      flash_message(true, "You have to pick dates to book this animal")
+      redirect_to :back
+    elsif @booking.start_date < @booking.end_date && @booking.start_date > Time.now
       if @animal.available_for_booking?(@booking.start_date, @booking.end_date)
         @booking.user = current_user
         @booking.animal = @animal
@@ -70,34 +79,27 @@ class BookingsController < ApplicationController
         # Making sure the user isn't booking their own animal
         unless @booking.user == @booking.animal.user
           @booking.save
-          flash[:title] = 'Success!'
-          flash[:notice] = 'Success! You have booked ' + @animal.name
+          flash_message(false, 'Success! You have booked #{@animal.name}')
           redirect_to booking_path(@booking)
         else
-          flash[:title] = "Error!"
-          flash[:notice] = "You can't book your own animal"
-          render 'animals/show'
+          flash_message(true, "You can't book your own animal")
+          redirect_to :back
         end
-
       else
-        flash[:title] = 'Error!'
-        flash[:notice] = "Sorry - " + @animal.name + " is already booked on this day"
-        render 'animals/show'
+        flash_message(true, "Sorry - #{@animal.name} is already booked on this day")
+        redirect_to :back
       end
 
     # All do similar things just display different messages for different errors
     elsif @booking.start_date < Time.now
-      flash[:title] = "Error!"
-      flash[:notice] = "You can't book in the past"
-      render 'animals/show'
+      flash_message(true, "You can't book in the past")
+      redirect_to :back
     elsif @booking.start_date > @booking.end_date
-      flash[:title] = "Error!"
-      flash[:notice] = "The start date can't be before the end date"
-      render 'animals/show'
+      flash_message(true, "The start date can't be before the end date")
+      redirect_to :back
     else # This condition will probably never be met. Should always be true on other conditions
-      flash[:title] = "Error!"
-      flash[:notice] = "Unknown Error"
-      render 'animals/show'
+      flash_message(true, "Unknown Error!")
+      redirect_to :back
     end
   end
 
