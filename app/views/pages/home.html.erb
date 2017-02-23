@@ -4,34 +4,49 @@
     <h1>Find a pet</h1>
 
     <%= form_tag("animals", method: "get", class: "form-inline") do %>
-      <div class="form-group">
-        <%= select_tag "species", options_from_collection_for_select(@species, 'id', 'name') %>
-      </div>
-      <div class="form-group date-picker">
-        <input type="text" id="calendar" name="start" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
-      </div>
-      <div class="form-group date-picker">
-        <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
-      </div>
-       <div class="form-group">
-        <input type="text" name="location" placeholder="Postcode" class="form-control">
-      </div>
-      <div class="form-group">
-        <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" />
-      </div>
-      <%= submit_tag("Search", class: "btn btn-info") %>
+    <div class="form-group">
+      <%= select_tag "species", options_from_collection_for_select(@species, 'id', 'name') %>
+    </div>
+    <div class="form-group date-picker">
+      <input type="text" id="calendar" name="start" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+    </div>
+    <div class="form-group date-picker">
+      <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" name="location" placeholder="Postcode" class="form-control">
+    </div>
+    <div class="form-group">
+      <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" />
+    </div>
+    <%= submit_tag("Search", class: "btn btn-info") %>
     <% end %>
 
   </div>
 </div>
 
 <div class="featured">
-  <!-- <h1 class="text-center">Pets of the day</h1> -->
-</div>
-<% content_for(:after_js) do %>
-  <script>
-    console.log("js is loaded")
-    var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+  <h1 class="text-center">Pets of the Week</h1>
+  <div class="container">
+    <div class="row">
+      <% @featured_animals[0..2].each do |animal| %>
+      <div class="col-xs-<%= @col_size.to_s %>" >
+        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+                <%= link_to "", animal_path(animal), class:"card-link"%>
+          <div class="card-category"> <p> <%= animal.species.name %> - Available for the next week! </p> </div>
+          <div class="card-description">
+            <h2> <%= animal.name %></h2>
+            <p> £<%= animal.price %> per day!</p>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
 
-  </script>
-<% end %>
+    <% content_for(:after_js) do %>
+    <script>
+      console.log("js is loaded")
+      var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+
+    </script>
+    <% end %>
