@@ -8,8 +8,12 @@
       <% animal.bookings.each do |booking| %>
         <% if !booking.accepted %>
           <div class="col-xs-12 col-sm-4">
-
-            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+              <% if animal.photos?
+                @animal_image = cl_image_path (animal.photos[0].path)
+              else
+                @animal_image = cl_image_path "placeholder_animal_rca6hk"
+              end %>
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= @animal_image %>')">
 
               <div class="card-description">
                 <h2> <%= booking.animal.name %></h2>
@@ -21,6 +25,10 @@
               <div class="accept-btn">
                 <%= link_to "Accept", { controller: :bookings, action: :accept, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
               </div>
+
+              <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+              <%= image_tag avatar_url, class: "avatar card-user" %>
+              <%= link_to "", profile_show_path(booking.user), class:"card-link"%>
 
             </div>
           </div>
@@ -82,7 +90,6 @@
     <%# end %>
   </div>
 </div> -->
-<!-- display requests to book animal -->
 
 <!-- animal that has been requested to book -->
 

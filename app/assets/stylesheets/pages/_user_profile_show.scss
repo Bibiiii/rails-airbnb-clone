@@ -1,0 +1,45 @@
+.page-container {
+  padding: 60px;
+  margin-bottom: 48px;
+  margin-top: 24px;
+  margin-right: 24px;
+}
+
+.flexbox-column {
+  .square-image {
+    padding: 10px;
+    img {
+      width: 100%;
+    }
+  }
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-radius:3px;
+  flex-direction: column;
+}
+
+.white-main {
+  padding: 0px 10px;
+  .small-img {
+    img {
+      width: 100%;
+    }
+  }
+
+  .info-bit {
+    padding: 20px;
+    h1, h2, h4, h5, h6, p {
+      padding: 10px;
+    }
+  }
+}
+
+.panel-header {
+  padding: 10px;
+  background-color: RGBA(237, 149, 142, 0.1);
+}
+
+.panel {
+  border: 1px solid RGBA(237, 149, 142, 1.00);
+}
