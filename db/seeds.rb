@@ -8,7 +8,6 @@
 Species.destroy_all
 
 species = [
-  "all animals",
   "aardvark",
   "albatross",
   "alligator",
@@ -61,6 +60,7 @@ species = [
   "donkey",
   "dotterel",
   "dove",
+  "dragon",
   "dragonfly",
   "duck",
   "dugong",
