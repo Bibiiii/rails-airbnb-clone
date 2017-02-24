@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   get '/my_requests/:id/accept', to: 'bookings#accept'
 
+  get 'my_requests/:id/review', to: 'bookings#review'
+
   mount Attachinary::Engine => "/attachinary"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
