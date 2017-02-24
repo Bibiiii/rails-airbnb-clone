@@ -38,6 +38,10 @@
               <h2><%= animal.name %></h2>
               <p>£<%= animal.price %></p>
             </div>
+            <% avatar_url = animal.user.photo? ? cl_image_path(animal.user.photo.path) : animal.user.facebook_picture_url || "http://placehold.it/30x30" %>
+              <%= link_to profile_show_path(animal.user) do %>
+                <%= image_tag avatar_url, class: "avatar card-user" %>
+              <% end %>
             <%= link_to "", animal_path(animal, start: params[:start], end: params[:end]), class:"card-link"%>
           </div>
         </div>

@@ -1,6 +1,7 @@
+<div class="container">
+
 <h2>Log in</h2>
 
-<div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-4 col-md-offset-4">
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -16,6 +17,7 @@
       <% end %>
     </div>
   </div>
+  <div class="centered">
+    <%= render "devise/shared/links" %>
+  </div>
 </div>
-
-<%= render "devise/shared/links" %>
