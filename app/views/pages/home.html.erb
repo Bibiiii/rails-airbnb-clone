@@ -25,6 +25,8 @@
   </div>
 </div>
 
+<% if @featured_animals.length > 0 %>
+
 <div class="featured">
   <h1 class="text-center">Pets of the Week</h1>
   <div class="container">
@@ -44,10 +46,14 @@
     </div>
   </div>
 
+
+<% end %>
+
     <% content_for(:after_js) do %>
     <script>
       console.log("js is loaded")
       var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
+  </script>
+<% end %>
 
-    </script>
-    <% end %>

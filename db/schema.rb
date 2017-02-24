@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170223143126) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "bio"
+    t.text     "bio"
     t.integer  "price"
     t.string   "location"
     t.integer  "species_id"

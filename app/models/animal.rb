@@ -18,7 +18,7 @@ class Animal < ApplicationRecord
     end
 
     # Dates
-    unless start_date.empty? || end_date.empty?
+    unless start_date.nil? || end_date.nil?
       animals_by_species_dates = animals_by_species.select do |animal|
         animal.available_for_booking?(start_date, end_date)
       end
@@ -46,4 +46,46 @@ class Animal < ApplicationRecord
       end
     end
   end
+
+  LOGOS = {
+    'snail' => '🐌',
+    'snake' => '🐍',
+    'horse' => '🐎',
+    'sheep' => '🐑',
+    'monkey' => '🐒',
+    'chicken' => '🐔',
+    'boar' => '🐗',
+    'elephant' => '🐘',
+    'octopus' => '🐙',
+    'bug' => '🐛',
+    'ant' => '🐜',
+    'honeybee' => '🐝',
+    'ladybird' => '🐞',
+    'fish' => '🐠',
+    'blowfish' => '🐡',
+    'turtle' => '🐢',
+    'chick' => '🐥',
+    'bird' => '🐦',
+    'penguin' => '🐧',
+    'koala' => '🐨',
+    'poodle' => '🐩',
+    'camel' => '🐫',
+    'dolphin' => '🐬',
+    'mouse' => '🐭',
+    'cow' => '🐮',
+    'tiger' => '🐯',
+    'rabbit' => '🐰',
+    'cat' => '🐱',
+    'dragon' => '🐲',
+    'whale' => '🐳',
+    'horse' => '🐴',
+    'monkey' => '🐵',
+    'dog' => '🐶',
+    'pig' => '🐷',
+    'frog' => '🐸',
+    'hamster' => '🐹',
+    'wolf' => '🐺',
+    'bear' => '🐻',
+    'panda' => '🐼'
+  }
 end

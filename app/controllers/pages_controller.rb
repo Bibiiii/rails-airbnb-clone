@@ -7,7 +7,7 @@ class PagesController < ApplicationController
     @end_date = Date.today() + 8.days
     @featured_animals = []
     calculate_featured_animals
-    @col_size = 12/@featured_animals[0..2].length
+    @col_size = 12/@featured_animals[0..2].length unless @featured_animals.length == 0
 
 
     # @bookings = @user.bookings
