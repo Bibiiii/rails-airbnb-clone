@@ -17,11 +17,19 @@
               <div class="panel-body">
                 <dl>
                   <dt style="padding: 10px 0px">Job</dt>
-                    <dd> <%= @user.job %></dd>
+                    <% if @user.job %>
+                      <dd> <%= @user.job %></dd>
+                    <% else %>
+                      <dd>No job info to show </dd>
+                    <% end %>
                   <dt style="padding: 10px 0px">Likes</dt>
-                    <% likes = @user.likes.split(',') %>
-                    <% likes.each do |like| %>
-                    <dd> <%= like %> </dd>
+                    <% if @user.likes? %>
+                      <% likes = @user.likes.split(',') %>
+                      <% likes.each do |like| %>
+                      <dd> <%= like %> </dd>
+                      <% end %>
+                    <% else %>
+                      <dd>No likes to show</dd>
                     <% end %>
                 </dl>
               </div>
