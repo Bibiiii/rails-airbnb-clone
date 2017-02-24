@@ -19,7 +19,7 @@
 
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
-
+      <%= link_to "Become an owner", new_animal_url, class: "navbar-wagon-item navbar-wagon-link" %>
 
     <!-- My Messages -->
       <%= link_to conversations_path, class: "navbar-wagon-item navbar-wagon-link" do %>
@@ -28,7 +28,6 @@
         <div class="badge badge-blue"> <%= Conversation.where(recipient_id: current_user).length + Conversation.where(sender_id: current_user).length %> </div>
       </div>
     <% end %>
-
 
     <!-- My bookings -->
     <%= link_to my_bookings_path, class: "navbar-wagon-item navbar-wagon-link" do %>
@@ -126,6 +125,9 @@
   <% else %>
     <div class="navbar-wagon-item fixed-right hidden-md hidden-lg">
       <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    </div>
+    <div class="navbar-wagon-item fixed-right hidden-md hidden-lg">
+      <%= link_to t(".sign_up", default: "Sign Up"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
     </div>
   <% end %>
 </div>
