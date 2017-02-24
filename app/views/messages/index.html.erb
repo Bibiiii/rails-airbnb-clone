@@ -36,21 +36,11 @@
     <% end %>
   </div>
 
-
   <div class="padded-boxling text-center">
     <h1>Write a message</h1>
   </div>
 
-  <div class="clear-form">
-    <%= simple_form_for [@conversation, @message] do |f| %>
 
-    <%= f.input :body%>
-
-    <div class="text-center">
-      <%= f.submit class: "btn btn-primary" %>
-    </div>
-
-    <% end %>
-  </div>
+<%= render 'form', message: @message, conversation: @conversation %>
 
 </div>
