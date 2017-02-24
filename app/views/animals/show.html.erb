@@ -73,18 +73,6 @@
               </div>
               <div>
                 <h3 class="bottom-margin">
-                  <% rating = @animal.bookings.average(:animal_rating).round(0).to_i %>
-                  <% rating.times do %>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  <% end %>
-                  <% (5-rating).times do %>
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <% end %>
-                </h3>
-                <p><em>Average rating</em></p>
-              </div>
-              <div>
-                <h3 class="bottom-margin">
                   <% if @animal.price < 50 %>
                     <% 1.times do %>
                       <i class="fa fa-gbp" aria-hidden="true"></i>
@@ -100,6 +88,20 @@
                   <% end %>
                 </h3>
                 <p><em>Price</em></p>
+              </div>
+              <div>
+                <h3 class="bottom-margin">
+                  <% if @animal.bookings.any? %>
+                    <% rating = @animal.bookings.average(:animal_rating).round(0).to_i %>
+                    <% rating.times do %>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    <% end %>
+                    <% (5-rating).times do %>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <% end %>
+                    </h3>
+                    <p><em>Average rating</em></p>
+                  <% end %>
               </div>
             </div>
           </div>
