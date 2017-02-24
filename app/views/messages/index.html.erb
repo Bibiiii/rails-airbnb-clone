@@ -1,9 +1,8 @@
 <div class="container">
-
   <div class="clear-header">
-    <h1>Message Log</h1>
+   <h1> Message Log with <%= @conversation.sender_id == current_user ? @conversation.recipient.first_name : @conversation.sender.first_name  %> </h1>
     <%= link_to conversations_path do %>
-      <p><i class="fa fa-undo" aria-hidden="true" style="font-size: 20px"></i> Go back</p>
+      <p><i class="fa fa-undo" aria-hidden="true" style="font-size: 20px"></i> Go back to inbox</p>
     <% end %>
   </div>
 
@@ -16,20 +15,22 @@
     <% @messages.each do |message| %>
       <% if message.body %>
         <% user = User.find(message.user_id) %>
-        <div class="message">
-          From:
+        <div class="row message">
+          <div class="hidden-xs col-sm-3">
+            From:
+          </div>
           <% if user.first_name? %>
-            <div class="user_name"><%= user.first_name %></div>
-            <div><p>  <%= message.body %></p></div>
-            <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
+            <div class="col-xs-6 col-sm-3 user_name"><strong><%= user.first_name %></strong></div>
+            <div class="col-xs-6 col-sm-3"><%= message.body %></div>
+            <div class=" col-sm-3 hidden-xs"><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
           <% elsif user.username?  %>
-            <div class="user_name"><%= user.username %></div>
-            <div><p>  <%= message.body %></p></div>
-            <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
+            <div class="col-xs-6 col-sm-3 user_name"><strong><%= user.username %></strong></div>
+            <div class="col-xs-6 col-sm-3"><%= message.body %></div>
+            <div class="hidden-xs col-sm-3"><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
           <% else %>
-            <div class="user_name"><%= user.email %></div>
-            <div><p>  <%= message.body %></p></div>
-            <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
+            <div class="col-xs-6 col-sm-3 user_name"><strong><%= user.email %></strong></div>
+            <div class="col-xs-6 col-sm-3"><%= message.body %></div>
+            <div class="hidden-xs col-sm-3"><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
           <% end %>
         </div>
       <% end %>

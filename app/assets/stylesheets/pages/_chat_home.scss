@@ -32,6 +32,7 @@
 }
 
 .spaced-elements {
+  display: block;
   padding: 2.5vmin;
   border-bottom: 1px solid RGBA(211, 211, 211, 0.5);
   i {
@@ -68,4 +69,9 @@
   margin:auto;
   width: 70vw;
   margin-bottom: 25px;
+}
+
+.message {
+  border-bottom: 1px solid RGBA(211, 211, 211, 0.1);
+  padding: 3px;
 }
