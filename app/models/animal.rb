@@ -10,10 +10,10 @@ class Animal < ApplicationRecord
 
   def self.search_animal(species, start_date, end_date, location, radius)
     # Species
-    species_name = Species.find(species)
-    if species_name.name == "All animals"
+    if species == "All animals"
       animals_by_species = Animal.all
     else
+      species_name = Species.find(species)
       animals_by_species = Animal.where(species: species_name)
     end
 
