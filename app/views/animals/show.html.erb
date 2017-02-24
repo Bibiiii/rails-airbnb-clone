@@ -91,9 +91,9 @@
                     <% end %>
                   <% else %>
                     <em>No reviews</em>
-                    </h3>
-                    <p><em>Average rating</em></p>
                   <% end %>
+                </h3>
+                <p><em>Average rating</em></p>
               </div>
               <div>
                 <h3 class="bottom-margin text-center">
@@ -252,11 +252,12 @@
                   }
                 });
               });
+
               var fixmeTop = $('.fixme').offset().top;
               var booking_width = $('.panel').width()
               $(window).scroll(function() {
                   var currentScroll = $(window).scrollTop();
-                  if (currentScroll >= fixmeTop) {
+                  if ((currentScroll >= fixmeTop) && ($(window).width()>1000)) {
                       $('.fixme').css({
                           'position': 'fixed',
                           'top': '50px',
