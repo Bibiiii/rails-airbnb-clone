@@ -7,12 +7,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
   margin-bottom: 50px;
 }
 .banner h1 {
   font-family: "Raleway", sans-serif;
-  font-size: 50px;
+  font-size: 5vmin;
   letter-spacing: 0.02em;
   font-weight: bold;
   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
@@ -20,7 +19,7 @@
 
 .banner h2 {
   font-family: "Raleway", sans-serif;
-  font-size: 30px;
+  font-size: 4vmin;
   // letter-spacing: 0.1em;
   font-weight: lighter;
   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
@@ -36,4 +35,22 @@
   font-weight: lighter;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
+}
+
+.xs-screen-tag {
+  h2 {
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 4vmin;
+    font-weight: lighter;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  }
+  span {
+    color: $yellow;
+    font-weight: bold;
+  }
+}
+
+.top {
+  margin-top: 100px;
 }
