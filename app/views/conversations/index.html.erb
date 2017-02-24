@@ -3,7 +3,6 @@
     <h1>Current chats</h1>
   </div>
 
-  <div>
     <div class="padded-boxling">
      <% @conversations.each do |conversation| %>
         <div class="spaced-elements"> <i class="fa fa-user-circle"></i>
@@ -21,10 +20,10 @@
             <%= link_to User.find(conversation.recipient_id).email, conversation_messages_path(conversation)%>
           <% end %>
         <% end %>
-       <% end %>
         </div>
-      </div>
-  </div>
+    <% end %>
+
+    </div>
 
   <div class="clear-header">
     <h1>All Users</h1>
@@ -42,8 +41,7 @@
             <% end %>
           </div>
         <% end %>
-      </div>
     <% end %>
+    </div>
   </div>
 
-</div>

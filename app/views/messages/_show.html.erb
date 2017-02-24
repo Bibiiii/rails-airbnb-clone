@@ -1,16 +1,18 @@
-<div class="message">
-  From:
-  <% if user.first_name? %>
-    <div class="user_name"><%= user.first_name %></div>
-    <div><p>  <%= message.body %></p></div>
-    <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
-  <% elsif user.username?  %>
-    <div class="user_name"><%= user.username %></div>
-    <div><p>  <%= message.body %></p></div>
-    <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
-  <% else %>
-    <div class="user_name"><%= user.email %></div>
-    <div><p>  <%= message.body %></p></div>
-    <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
-  <% end %>
-</div>
+        <div class="row">
+          <div class="hidden-xs col-sm-3">
+            From:
+          </div>
+          <% if user.first_name? %>
+            <div class="col-xs-4 col-sm-3 user_name"> <strong> <%= user.first_name %> </strong></div>
+            <div class="col-xs-4 col-sm-3"><%= message.body %></div>
+            <div class="col-xs-4 col-sm-3"><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
+          <% elsif user.username?  %>
+            <div class="col-xs-4 col-sm-3 user_name"><strong><%= user.username %></strong></div>
+            <div class="col-xs-4 col-sm-3"><%= message.body %></div>
+            <div class="col-xs-4 col-sm-3"><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
+          <% else %>
+            <div class="col-xs-4 col-sm-3 user_name"><strong><%= user.email %></strong></div>
+            <div class="col-xs-4 col-sm-3"><%= message.body %></div>
+            <div class="col-xs-4 col-sm-3"><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
+          <% end %>
+        </div>
