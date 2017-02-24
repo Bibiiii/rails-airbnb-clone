@@ -54,6 +54,15 @@ class BookingsController < ApplicationController
   def accept
     @booking = Booking.find(params[:id])
     @booking.accepted = true
+    @booking.reviewed = true
+    @booking.save
+    redirect_to my_requests_path
+  end
+
+  def review
+    @booking = Booking.find(params[:id])
+    @booking.accepted = false
+    @booking.reviewed = true
     @booking.save
     redirect_to my_requests_path
   end
@@ -75,7 +84,7 @@ class BookingsController < ApplicationController
         @booking.user = current_user
         @booking.animal = @animal
         @booking.accepted = false
-
+        @booking.reviewed = false
         # Making sure the user isn't booking their own animal
         unless @booking.user == @booking.animal.user
           @booking.save

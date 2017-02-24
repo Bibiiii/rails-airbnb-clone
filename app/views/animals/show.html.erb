@@ -1,4 +1,5 @@
 
+<div class="container">
 <div id="animal-carousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -47,7 +48,6 @@
 </div>
 
 <!-- Overview profile -->
-<div class="container">
   <div class="pink-wrapper padded">
     <div class="row">
       <div class="col-xs-12 col-lg-8">
@@ -60,15 +60,23 @@
         <div class="col-xs-8 col-lg-8">
           <div class="row">
             <h1> <%= @animal.name.capitalize %>
-              <%= link_to edit_animal_path(@animal) do %>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+              <% if @animal.user == current_user %>
+                <%= link_to edit_animal_path(@animal) do %>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                <% end %>
               <% end %>
             </h1>
           </div>
           <div class="row">
             <div class="spaced-flex">
               <div>
-                <h1><%= Animal::LOGOS[@animal.species.name.downcase] %></h1>
+                <h1>
+                <% if Animal::LOGOS[@animal.species.name.downcase].nil? %>
+                  🐾
+                <% else %>
+                  <%= Animal::LOGOS[@animal.species.name.downcase] %>
+                <% end %>
+                </h1>
                 <p><em><%= @animal.species.name %></em></p>
               </div>
               <div>
@@ -220,21 +228,40 @@
           <h3>Location</h3>
           <div id="map"> </div>
           <% content_for(:after_js) do %>
-            <%= javascript_tag do %>
+            <script>
               $(document).ready(function() {
-              var handler = Gmaps.build('Google');
-              handler.buildMap({ internal: { id: 'map' } }, function() {
-              markers = handler.addMarkers(<%= raw @hash.to_json %>);
-              handler.bounds.extendWith(markers);
-              handler.fitMapToBounds();
-              if (markers.length == 0) {
-              handler.getMap().setZoom(2);
-              } else if (markers.length == 1) {
-              handler.getMap().setZoom(14);
-              }
+                var handler = Gmaps.build('Google');
+                handler.buildMap({ internal: { id: 'map' } }, function() {
+                  markers = handler.addMarkers(<%= raw @hash.to_json %>);
+                  handler.bounds.extendWith(markers);
+                  handler.fitMapToBounds();
+                  if (markers.length == 0) {
+                    handler.getMap().setZoom(2);
+                  } else if (markers.length == 1) {
+                    handler.getMap().setZoom(14);
+                  }
+                });
               });
+              var fixmeTop = $('.fixme').offset().top;
+              var booking_width = $('.panel').width()
+              $(window).scroll(function() {
+                  var currentScroll = $(window).scrollTop();
+                  if (currentScroll >= fixmeTop) {
+                      $('.fixme').css({
+                          'position': 'fixed',
+                          'top': '50px',
+                          'z-index': 90,
+                          'width': String(booking_width) + 'px'
+                      });
+                  } else {
+                      $('.fixme').css({
+                          position: 'static'
+                      });
+                  }
               });
-            <% end %>
+
+
+            </script>
           <% end %>
         </div>
       </div>

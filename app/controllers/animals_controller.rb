@@ -11,8 +11,7 @@ class AnimalsController < ApplicationController
     @hash = Gmaps4rails.build_markers(@animals) do |animal, marker|
       marker.lat animal.latitude
       marker.lng animal.longitude
-      marker.infowindow "Katie you will never get this to say that the animal is " + animal.name
-      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+      marker.infowindow render_to_string(partial: "users/map_box", locals: { animal: animal })
     end
   end
 

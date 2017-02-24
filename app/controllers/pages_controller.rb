@@ -3,6 +3,8 @@ class PagesController < ApplicationController
     @user = current_user
     @species = Species.all
     @animals = Animal.all
+    @species_list = @animals.map { |animal| animal.species.name }.uniq
+    @species_list.unshift("All animals")
     @start_date = Date.today() + 1.days
     @end_date = Date.today() + 8.days
     @featured_animals = []
