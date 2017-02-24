@@ -1,0 +1,6 @@
+<%= animal.name %>
+<% if Animal::LOGOS[animal.species.name.downcase].nil? %>
+                 🐾
+               <% else %>
+                 <%= Animal::LOGOS[animal.species.name.downcase] %>
+               <% end %>
