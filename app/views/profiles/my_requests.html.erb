@@ -6,7 +6,7 @@
     <h3>New Requests</h3>
     <% @user.animals.each do |animal| %>
       <% animal.bookings.each do |booking| %>
-        <% if !booking.accepted %>
+        <% if !booking.reviewed %>
           <div class="col-xs-12 col-sm-4">
               <% if animal.photos?
                 @animal_image = cl_image_path (animal.photos[0].path)
@@ -28,6 +28,7 @@
               <% end %>
 
               <div class="card-btn">
+                <%= link_to "Deny", { controller: :bookings, action: :review, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
                 <%= link_to "Accept", { controller: :bookings, action: :accept, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
               </div>
             </div>
@@ -45,7 +46,34 @@
     <h3>Confirmed Requests</h3>
     <% @user.animals.each do |animal| %>
       <% animal.bookings.each do |booking| %>
-        <% if booking.accepted %>
+        <% if booking.accepted && booking.reviewed %>
+          <div class="col-xs-12 col-sm-4">
+
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
+
+              <div class="card-description">
+                <h2> <%= booking.animal.name %></h2>
+                <p> <%= booking.start_date %> - <%= booking.end_date %> </p>
+                <% price = booking.animal.price * (booking.end_date - booking.start_date).to_i %>
+                <p> £<%= price %> </p>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="row padded">
+
+    <h3>Denied Requests</h3>
+    <% @user.animals.each do |animal| %>
+      <% animal.bookings.each do |booking| %>
+        <% if !booking.accepted && booking.reviewed %>
           <div class="col-xs-12 col-sm-4">
 
             <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
