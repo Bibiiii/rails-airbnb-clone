@@ -1,57 +1,72 @@
-<br>
-<h1 class="text-center page-title"> <%= @user.username %>  <%= link_to my_profile_edit_path do %>
-<i class="fa fa-pencil" aria-hidden="true" style="font-size: 30px"></i>
-<% end %>
- </h1>
-<div class="container">
+<div class="page-container">
+  <div class="container main-content">
+    <div class="row">
+      <!-- user profile sidebar -->
+      <div class="col-md-3 hidden-xs hidden-sm flexbox-column">
+        <div>
+          <!-- profile picture -->
+          <div class="square-image">
+            <% profile_image = (@user.photo? ? @user.photo.path : @user.facebook_picture_url || "http://placehold.it/30x30" ) %>
+            <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
+          </div>
 
-  <div class="row">
-
-    <div class="large-card profile-page">
-
-      <div class="col-xs-offset-2 col-xs-4">
-        <% profile_image = current_user.photo? ? current_user.photo.path : current_user.facebook_picture_url %>
-        <% profile_image = "https://www.bunnyholder.com/200/300" if profile_image.nil?  %>
-        <%= cl_image_tag profile_image, width: 250, height: 250, crop: :fill %>
-      </div>
-
-      <div class="col-xs-4">
-
-        <h3> <span style="color: RGBA(247, 194, 80, 1.00)" > Name: </span> <%= @user.first_name %> <%= @user.last_name %></h3>
-        <h3 style="color: RGBA(247, 194, 80, 1.00)"> Bio: </h3>
-         <p> <%= @user.bio %></p>
-      </div>
-
-      <div class="col-xs-4">
-        <ul>
-
-            <% Booking.all.each do |booking| %>
-              <% if @user == booking.user %>
-                <li style="list-style-type: none;">
-
-                  <% unless booking.renter_rating.nil? %>
-
-                    <% avatar_url = booking.animal.user.photo? ? cl_image_path(booking.animal.user.photo.path) : booking.animal.user.facebook_picture_url || "http://placehold.it/30x30" %>
-                    <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
-
-                    <%= "#{booking.animal.user.first_name} #{booking.animal.user.last_name}" %>
-                    <%  booking.renter_rating.times do %>
-                      <i class="fa fa-star" aria-hidden="true"></i>
+          <!-- about me -->
+          <div class="panel">
+            <div class="panel-header text-center"><h4>About Me</h4></div>
+              <div class="panel-body">
+                <dl>
+                  <dt style="padding: 10px 0px">Job</dt>
+                    <% if @user.job %>
+                      <dd> <%= @user.job %></dd>
+                    <% else %>
+                      <dd>No job info to show </dd>
                     <% end %>
-                  <% end %>
+                  <dt style="padding: 10px 0px">Likes</dt>
+                    <% if @user.likes? %>
+                      <% likes = @user.likes.split(',') %>
+                      <% likes.each do |like| %>
+                      <dd> <%= like %> </dd>
+                      <% end %>
+                    <% else %>
+                      <dd>No likes to show</dd>
+                    <% end %>
+                </dl>
+              </div>
+          </div>
+        </div>
+      </div>
 
-                  <br>
-                  <%= booking.renter_review %>
-                </li>
-              <% end %>
+
+      <!-- Main Profile -->
+      <div class="col-sm-9 white-main">
+
+        <!-- small screen only profile pic -->
+        <div class="col-sm-3 hidden-md hidden-lg hidden-xl small-img">
+          <%= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank" %>
+        </div>
+
+        <div class="info-bit">
+          <!-- profile header -->
+          <div>
+            <h1>Hey, I'm <%= @user.first_name %>!</h1>
+            <h5><%= @user.location %> · <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
+            <%= link_to profile_edit_path(@user) do %>
+              <p>Edit profile <i class="fa fa-pencil" aria-hidden="true" style="font-size: 30px"></i> </p>
             <% end %>
-          </ul>
-        </div>
+          </div>
+
+          <!-- profile main -->
+          <div>
+            <p> <%= @user.bio %></p>
+            <h2>Reviews</h2>
+            <h4>Reviews from pet owners</h4>
+            <%= render "reviews" %>
+          </div>
 
         </div>
-
-          <%= render "reviews" %>
-        </ul>
 
       </div>
     </div>
+  </div>
+</div>
+
