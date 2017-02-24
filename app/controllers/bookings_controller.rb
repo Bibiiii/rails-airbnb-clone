@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
   def show
     @booking = Booking.find(params[:id])
 
-    if Time.now > @booking.end_date && @booking.accepted
+    if @booking.accepted
       if @booking.animal_rating.nil? && @booking.user == current_user
         @animal_review_needed = true
       else
