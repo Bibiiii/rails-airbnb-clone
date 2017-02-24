@@ -29,9 +29,10 @@
             <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= @animal_image %>')">
               <div class="card-description">
                 <h2> <%= animal.name %></h2>
-                <p> <%= animal.bio %> </p>
+                <p> <%= animal.bio.truncate_words(10) %> </p>
               </div>
               <div class="price"><p> £<%= animal.price %>/day </p></div>
+              <%= link_to "", animal_show_path(animal), class:"card-link"%>
             </div>
           </div>
         <% end %>
