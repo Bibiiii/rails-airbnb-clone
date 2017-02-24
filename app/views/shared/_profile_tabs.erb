@@ -1,0 +1,37 @@
+<div class="profile-dashboard">
+  <ul class="nav nav-tabs tabbles">
+    <li role="presentation" class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+    <li role="presentation"><a href="#pets" data-toggle="tab">My Animals</a></li>
+    <li role="presentation"><a href="#bookings" data-toggle="tab">My Bookings</a></li>
+  </ul>
+</div>
+
+<div class="tab-content">
+
+  <div role="tabpanel" class="tab-pane active" id="profile">
+    <%= render "profiles/profile_page" %>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="pets">
+    <div class="container">
+      <div class="row">
+        <% @user.animals.each do |animal| %>
+          <div class="col-xs-6 col-md-3">
+            <% if animal.photos?
+                @animal_image = cl_image_path (animal.photos[0].path)
+              else
+                @animal_image = cl_image_path "placeholder_animal_rca6hk"
+              end %>
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= @animal_image %>')">
+              <div class="card-description">
+                <h2> <%= animal.name %></h2>
+                <p> <%= animal.bio %> </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
