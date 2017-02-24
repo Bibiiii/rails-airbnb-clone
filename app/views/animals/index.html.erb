@@ -1,39 +1,78 @@
 <div class="container">
-  <h1> Search results </h1>
-  <br>
-  <div class="row">
-    <% @animals.each do |animal| %>
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
-          url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
-          <div class="card-category"><%= animal.species.name %></div>
-          <div class="card-description">
-            <h2><%= animal.name %></h2>
-            <p>£<%= animal.price %></p>
-          </div>
-          <%= link_to "", animal_path(animal, start: params[:start], end: params[:end]), class:"card-link"%>
-        </div>
-      </div>
+
+<!-- search form -->
+  <div class="search-bar">
+    <h4>Edit search:</h4>
+    <%= form_tag("animals", method: "get", class: "form-inline") do %>
+    <div class="form-group">
+      <%= select_tag "species", options_for_select(@species_list) %>
+    </div>
+    <div class="form-group date-picker">
+      <input type="text" id="calendar" name="start" value="<%= params[:start] %>" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+    </div>
+    <div class="form-group date-picker">
+      <input type="text" id="calendar2" name="end" value="<%= params[:end] %>" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="text" name="location" value="<%= params[:location] %>" placeholder="Postcode" class="form-control">
+    </div>
+    <div class="form-group">
+      <input id="radius" name="radius" type="number" value="<%= params[:radius] %>" placeholder="Radius (km)" class="form-control" />
+    </div>
+    <%= submit_tag("Search", class: "btn btn-info") %>
     <% end %>
+  </div>
+<br>
+  <h1> Search results </h1>
+
+
+<!-- animal cards -->
+  <div class="row">
+    <div class="col-xs-12 col-md-7">
+      <% @animals.each do |animal| %>
+        <div class="col-xs-12 col-md-6">
+          <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
+            url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : 'placeholder_animal_rca6hk'), height: 300, width: 400, crop: :fill %>')">
+            <div class="card-category"><%= animal.species.name %></div>
+            <div class="card-description">
+              <h2><%= animal.name %></h2>
+              <p>£<%= animal.price %></p>
+            </div>
+            <%= link_to "", animal_path(animal, start: params[:start], end: params[:end]), class:"card-link"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- map -->
+    <div class="col-xs-12 col-md-5">
+      <div id="map"> </div>
+      <% content_for(:after_js) do %>
+        <script>
+          $(document).ready(function() {
+            var handler = Gmaps.build('Google');
+            handler.buildMap({ internal: { id: 'map' } }, function() {
+              markers = handler.addMarkers(<%= raw @hash.to_json %>);
+              handler.bounds.extendWith(markers);
+              handler.fitMapToBounds();
+              if (markers.length == 0) {
+                handler.getMap().setZoom(2);
+              } else if (markers.length == 1) {
+                handler.getMap().setZoom(14);
+              }
+            });
+          });
+        </script>
+      <% end %>
+    </div>
   </div>
 </div>
 
-<div id="map"> </div>
-<% content_for(:after_js) do %>
-  <script>
-    $(document).ready(function() {
-      var handler = Gmaps.build('Google');
-      handler.buildMap({ internal: { id: 'map' } }, function() {
-        markers = handler.addMarkers(<%= raw @hash.to_json %>);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-        if (markers.length == 0) {
-          handler.getMap().setZoom(2);
-        } else if (markers.length == 1) {
-          handler.getMap().setZoom(14);
-        }
-      });
-    });
+    <% content_for(:after_js) do %>
+    <script>
+      console.log("js is loaded")
+      var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
   </script>
 <% end %>
 

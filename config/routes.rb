@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :bookings, only: [:index, :show, :destroy, :requests]
 
+  get '/animals/:id', to: 'animals#show', as: "animal_show"
+
   get '/my_profile', to: 'profiles#my_profile', as: "my_profile"
 
   get '/my_bookings', to: 'profiles#my_bookings'

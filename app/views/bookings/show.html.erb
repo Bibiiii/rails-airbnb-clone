@@ -1,18 +1,23 @@
-<h2 class="text-center page-title">You have booked</h2>
+<div class="clear-header">
+  <h1 class="text-center">You have booked</h1>
+</div>
+<br>
 <div class="container">
 
   <div class="row">
 
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
 
-      <div class="pink-wrapper">
+      <div class="pink-wrapper" style="padding: 15px;">
         <div class="animal-details large-card">
           <div class="card-content">
             <p>
-              <strong>Booking date: </strong> <%= @booking.created_at %>
+              <strong>Booking date: </strong> <%= @booking.created_at.strftime("%e %B %Y") %>
             </p>
             <h3>
-              <%= @booking.animal.name %> the <%= @booking.animal.species.name %>
+              <%= link_to animal_show_path, style: "text-decoration: none; color: #1E402D;" do %>
+                <%= @booking.animal.name %> the <%= @booking.animal.species.name %>
+              <% end %>
             </h3>
             <p><%= @booking.animal.bio %></p>
             <br>
@@ -25,24 +30,43 @@
             <br>
 
             <h4>
-              <strong> Status: </strong> <%= @booking.accepted ? "Confirmed" : "Awaiting confirmation by owner" %>
+              <strong> Status: </strong>
+              <% if !@booking.accepted && !@booking.reviewed %>
+                <span id="warning-text" >Awaiting confirmation from <%= @booking.animal.user.first_name.nil? ? @booking.animal.user.email : @booking.animal.user.first_name %></span>
+              <% elsif !@booking.accepted && @booking.reviewed %>
+                <span id="danger-text">Denied</span>
+              <% elsif @booking.accepted && @booking.reviewed %>
+                <span id="success-text">Confirmed</span>
+              <% end %>
             </h4>
+
+            <h5>
+            <%= link_to profile_show_path, style: "text-decoration: none; color: #1E402D;" do %>
+              Owner:
+              <% avatar_url = @booking.animal.user.photo? ? cl_image_path(@booking.animal.user.photo.path) : @booking.animal.user.facebook_picture_url || "http://placehold.it/30x30" %>
+              <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+              <%= @booking.animal.user.first_name.nil? ? @booking.animal.user.email : @booking.animal.user.first_name + " " + @booking.animal.user.last_name %>
+            <% end %>
+            </h5>
           </div>
 
-          <div class="card-image">
-            <%= cl_image_tag(@booking.animal.photos[0].path, :radius => :max, :height => 150, :width => 150, :crop => :fill) %>
-          </div>
+          <%= link_to animal_show_path do %>
+            <div class="card-image">
+              <%= cl_image_tag(@booking.animal.photos[0].path, :radius => :max, :height => 200, :width => 200, :crop => :fill) %>
+            </div>
+          <% end %>
+
         </div>
       </div>
     </div>
   </div>
 
-    <div class="col-xs-12 col-md-6">
-      <% if @animal_review_needed %>
-        <%= render "animal_review" %>
-      <% elsif @renter_review_needed %>
-        <%= render "renter_review" %>
-      <% end %>
-    </div>
+  <div class="col-xs-12 col-md-6">
+    <% if @animal_review_needed %>
+    <%= render "animal_review" %>
+    <% elsif @renter_review_needed %>
+    <%= render "renter_review" %>
+    <% end %>
+  </div>
 </div>
 
