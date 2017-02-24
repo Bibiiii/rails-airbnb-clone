@@ -81,6 +81,22 @@
               </div>
               <div>
                 <h3 class="bottom-margin">
+                  <% if @animal.bookings.any? & !@animal.bookings.average(:animal_rating).nil? %>
+                    <% rating = @animal.bookings.average(:animal_rating).round(0).to_i %>
+                    <% rating.times do %>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    <% end %>
+                    <% (5-rating).times do %>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <% end %>
+                  <% else %>
+                    <em>No reviews</em>
+                    </h3>
+                    <p><em>Average rating</em></p>
+                  <% end %>
+              </div>
+              <div>
+                <h3 class="bottom-margin text-center">
                   <% if @animal.price < 50 %>
                     <% 1.times do %>
                       <i class="fa fa-gbp" aria-hidden="true"></i>
@@ -95,26 +111,14 @@
                     <% end %>
                   <% end %>
                 </h3>
-                <p><em>Price</em></p>
-              </div>
-              <div>
-                <h3 class="bottom-margin">
-                  <% if @animal.bookings.any? & !@animal.bookings.average(:animal_rating).nil? %>
-                    <% rating = @animal.bookings.average(:animal_rating).round(0).to_i %>
-                    <% rating.times do %>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                    <% end %>
-                    <% (5-rating).times do %>
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <% end %>
-                    </h3>
-                    <p><em>Average rating</em></p>
-                  <% end %>
+                <p><em>Price bracket</em></p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+<!-- booking form -->
       <div class="col-xs-12 col-lg-4">
         <div class="panel panel-primary fixme panel-margin">
           <div class="panel-heading">
