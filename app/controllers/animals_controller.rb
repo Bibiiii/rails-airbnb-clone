@@ -8,6 +8,9 @@ class AnimalsController < ApplicationController
       @animals = Animal.search_animal(params[:species], params[:start], params[:end], params[:location], params[:radius])
     end
 
+    @species_list = @animals.map { |animal| animal.species.name }.uniq
+    @species_list.unshift("All animals")
+
     @hash = Gmaps4rails.build_markers(@animals) do |animal, marker|
       marker.lat animal.latitude
       marker.lng animal.longitude
