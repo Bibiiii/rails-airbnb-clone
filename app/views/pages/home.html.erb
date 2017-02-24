@@ -32,7 +32,7 @@
       <% @featured_animals[0..2].each do |animal| %>
       <div class="col-xs-<%= @col_size.to_s %>" >
         <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path (animal.photos? ? (animal.photos[0].path) : "placeholder_animal_rca6hk"), height: 300, width: 400, crop: :fill %>')">
-                <%= link_to "", animal_path(animal), class:"card-link"%>
+          <%= link_to "", animal_path(animal), class:"card-link"%>
           <div class="card-category"> <p> <%= animal.species.name %> - Available for the next week! </p> </div>
           <div class="card-description">
             <h2> <%= animal.name %></h2>
@@ -42,6 +42,7 @@
       </div>
       <% end %>
     </div>
+  </div>
 
     <% content_for(:after_js) do %>
     <script>
