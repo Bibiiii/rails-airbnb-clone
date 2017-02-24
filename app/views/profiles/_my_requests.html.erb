@@ -28,8 +28,8 @@
               <% end %>
 
               <div class="card-btn">
-                <%= link_to "Deny", { controller: :bookings, action: :review, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
-                <%= link_to "Accept", { controller: :bookings, action: :accept, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+                <%= link_to "Deny", { controller: :bookings, action: :review, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-danger" %>
+                <%= link_to "Accept", { controller: :bookings, action: :accept, id: booking.id }, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-success" %>
               </div>
             </div>
           </div>
