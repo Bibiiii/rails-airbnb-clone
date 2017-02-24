@@ -48,6 +48,7 @@
               <%= @booking.animal.user.first_name.nil? ? @booking.animal.user.email : @booking.animal.user.first_name + " " + @booking.animal.user.last_name %>
             <% end %>
             </h5>
+            <%= link_to "Chat to the owner!", conversations_path(sender_id: current_user.id, recipient_id: @booking.animal.user), method: "post", class: "btn btn-primary" %>
           </div>
 
           <%= link_to animal_show_path do %>
