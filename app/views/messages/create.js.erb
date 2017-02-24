@@ -1,0 +1,15 @@
+
+  // Create a paragraph for the new review. But hide it.
+  var new_message = $("<%= j render 'messages/show', message: @message, user: @message.user %>").hide();
+  // Add it to the DOM, at the end of the existing reviews. It's still hidden.
+  $('.messages').append(new_message);
+  // Show the new review with an animation!
+  new_message.slideDown();
+
+
+  // Reset the form
+  $('.new_message').html("<%= j render 'messages/form', message: Message.new, conversation: @conversation %>");
+
+
+
+

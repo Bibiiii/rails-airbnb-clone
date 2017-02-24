@@ -34,10 +34,18 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     if @message.save
-
-      redirect_to conversation_messages_path(@conversation)
+      respond_to do |format|
+        format.html { redirect_to conversation_messages_path(@conversation) }
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+      end
+    else
+      respond_to do |format|
+        format.html { render 'messages/index'  }
+        format.js  # <-- idem
+      end
     end
-  end
+
+    end
 
 private
  def message_params
